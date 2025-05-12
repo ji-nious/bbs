@@ -33,9 +33,9 @@ public class BoardDAOImpl implements BoardDAO{
     BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(board);
 
     //INSERT, UPDATE, DELETE 쿼리에서 영향받은 행의 수(int)를 반환
-    int rows = template.update(sql.toString(), param);
+    long rows = template.update(sql.toString(), param);
     log.info("삽입된 행의 수 = {}", rows);
 
-    return 0L;
+    return rows;
   }
 }
