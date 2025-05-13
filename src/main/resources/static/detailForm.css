@@ -43,7 +43,27 @@ body {
     color: #4E5879;
 }
 
+.content-title {
+    display: flex;
+    justify-content: start;
+    align-items: end;
 
+    width: 90%;
+    height: 40px;
+}
+
+.content-title-input {
+    height: 40px;
+    width: 100%;
+
+    box-sizing: border-box;
+
+    background-color: #ECEEF6;
+
+    border-width: 0;
+    border-bottom: 2px solid #A1AAC8 ;
+    outline: none;
+}
 .notice {
     display: flex;
     flex-direction: column;
@@ -52,7 +72,7 @@ body {
     background-color: #C9D4F6;
     width: 90%;
     height: 100px;
-    margin-bottom: 40px;
+
     margin-top: 25px;
     box-sizing: border-box;
     padding: 20px;
@@ -68,7 +88,6 @@ body {
     width: 90%;
     height: 350px;
 
-    padding: 15px;
     box-sizing: border-box;
 }
 
@@ -79,23 +98,74 @@ body {
     flex-direction: column;
     align-items: stretch ;
 
+    flex-grow: 1;
+
     width: 100%;
     height: 100%;
 
-    margin-top: 20px;
+    padding-top: 5px;
+
 }
 
-.form-info, .form-info-item {
+.form-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-info-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
+    flex-grow: 1;
+
+    height: 100%;
+
     margin-bottom: 5px;
 }
 
-.items {
-    flex-grow: 1;
+.items-label {
+    width: 40%;
     margin-right: 5px;
+
+    color:#4E5879;
+    text-align: center;
+}
+
+.items {
+    width: 60%;
+    height: 100%;
+
+    
+    background-color: white;
+    border-width: 0;
+    outline: none;
+}
+
+.form-body {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+
+    width: 100%;
+    height: 80%;
+
+}
+
+.form-body-input {
+    height: 100%;
+    width: 100%;
+
+    box-sizing: border-box;
+
+    
+    background-color: white;
+
+    border-width: 0;
+    border-top: 2px solid #A1AAC8 ;
+    border-bottom: 2px solid #A1AAC8 ;
+    outline: none;
 }
 
 
@@ -116,8 +186,9 @@ body {
     align-items: center;
 
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-.btn {
-    margin-left: 3px;
+.bnt {
+    margin-left: 8px;
 }

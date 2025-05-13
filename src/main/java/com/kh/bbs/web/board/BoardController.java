@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@RequestMapping
+@RequestMapping("/boards")
 @Slf4j
 @RequiredArgsConstructor
 @Controller
@@ -26,7 +26,7 @@ public class BoardController {
   //클라이언트가 '글쓰기' 버튼을 누르면 실행될 액션을 정의해주는 거임
   @GetMapping("/add")
   public String addForm() {
-    return "product/add";
+    return "board/add";
   }
 
   //'저장'버튼
@@ -45,7 +45,7 @@ public class BoardController {
 
     redirectAttributes.addAttribute("id", bid);
 
-    return "redirect:/products/{id}";
+    return "redirect:/board/{id}";
   }
 
 }

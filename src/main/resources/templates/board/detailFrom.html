@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/static/detailForm.css" rel="stylesheet">
+    <link href="/static/add.css" rel="stylesheet">
     <title>자유게시판</title>
 </head>
 
@@ -17,25 +17,32 @@
         <div class="main-content">
             <h2 class="title">자유게시판</h2>
             <div class="notice">공지</div>
+            <div class="content-title">
+                <input class="content-title-input" type="text">
+            </div>
             <div class="content">
                 <form class="form">
-                    <div class="content-title">제목</div>
                     <div class="form-info">
                         <div class="form-info-item info-writer">
-                            <div class="items">작성자</div>
+                            <div class="items-label">작성자</div>
                             <input class="items" type="text" readonly>
                         </div>
                         <div class="form-info-item info-created">
-                            <div class="items">작성일</div>
+                            <div class="items-label">작성일</div>
                             <input class="items" type="text" readonly>
                         </div>
                         <div class="form-info-item info-updated">
-                            <div class="items">수정일</div>
+                            <div class="items-label">수정일</div>
                             <input class="items" type="text" readonly>
                         </div>
                     </div>
                     <div class="form-body">
-                        <input type="text">
+                        <input class="form-body-input" type="text">
+                    </div>
+                    <div class="button-group">
+                        <button class="bnt bnt-update">수정</button>
+                        <button class="bnt bnt-delete">삭제</button>
+                        <button class="bnt bnt-list">목록</button>
                     </div>
                 </form>
             </div>

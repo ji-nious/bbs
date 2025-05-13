@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/static/add.css" rel="stylesheet">
-    <title>자유게시판</title>
+    <link href="/add.css" rel="stylesheet">
+    <title>게시글쓰기</title>
 </head>
 
 <body>
@@ -28,7 +28,7 @@
  - 개인정보의 수집·이용 목적 : 게시 글 접수 · 처리 · 사후 관리 서비스 제공 등 업무 수행
  - 수집하는 개인정보의 항목 필수항목 : 성명(자동 수집) 선택항목 : 없음</textarea>
                 </div>
-                <form class="form">
+                <form action="/boards/add" class="form">
                     <div class="form_group form_writer">
                         <label class="form-label form-label_writer">작성자</label>
                         <input class="input" type="text" value="허진희" readonly>
