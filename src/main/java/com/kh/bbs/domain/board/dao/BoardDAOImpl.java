@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 
@@ -33,8 +35,13 @@ public class BoardDAOImpl implements BoardDAO{
     BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(board);
 
     //INSERT, UPDATE, DELETE 쿼리에서 영향받은 행의 수(int)를 반환
-    long rows = template.update(sql.toString(), param);
-    log.info("삽입된 행의 수 = {}", rows);
+//    long rows = template.update(sql.toString(), param);
+//    log.info("삽입된 행의 수 = {}", rows);
+
+    KeyHolder keyHolder = new GeneratedKeyHolder();
+
+    long rows = template.update(sql.toString(), param, keyHolder, new String[]{"board_id"});
+    log.info("rows={}", rows);
 
     return rows;
   }

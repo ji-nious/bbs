@@ -1,0 +1,150 @@
+/* * {outline: 1px solid red;} */
+
+
+
+body {
+    background-color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+
+}
+
+.header {
+    background-color: #6F82C0;
+    height: 180px;
+}
+
+.footer {
+    background-color: #A1AAC8;
+    height: 100px;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 800px;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #F3F3F9;
+    width: 800px;
+    height: 100%;
+}
+
+.title {
+    color: #4E5879;
+}
+
+.notice-text {
+    margin : 5px;
+}
+
+
+.notice {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background-color: #C9D4F6;
+    width: 90%;
+    height: 120px;
+    margin-bottom: 40px;
+    margin-top: 25px;
+    box-sizing: border-box;
+    padding: 20px;
+
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #ECEEF6;
+    width: 90%;
+    height: 450px;
+
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.privacy-info {
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+
+    width: 100%;
+    height: 80px;
+}
+
+.privacy-info-textarea {
+    flex-grow: 1;
+
+    box-sizing: border-box;
+
+    border-color: #C7D0FD;
+    border-width: thin;
+    outline: none;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch ;
+
+    width: 100%;
+    height: 350px;
+
+    margin-top: 20px;
+}
+
+.form_group {
+    display: flex;
+    align-items: stretch;
+    justify-content:space-between;
+    width: 100%;
+
+    margin-bottom: 5px;
+}
+
+.form_writer, .form_title {
+    height: 35px;
+}
+
+.form_content {
+    height: 200px;
+}
+
+.form-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+}
+
+.input {
+    flex-grow: 1;
+    border-width: 0;
+    outline: 0;
+
+}
+
+.button-group {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    margin-top: 10px;
+}
+
+.btn {
+    margin-left: 3px;
+}

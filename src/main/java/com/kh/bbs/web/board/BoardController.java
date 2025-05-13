@@ -43,6 +43,8 @@ public class BoardController {
 
     Long bid = boardSVC.save(board);
 
+    redirectAttributes.addAttribute("id", bid);
+
     return "redirect:/products/{id}";
   }
 

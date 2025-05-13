@@ -1,13 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="/static/add.css" rel="stylesheet">
+    <title>자유게시판</title>
 </head>
+
 <body>
-    <header class="layout__header">헤더</header>
-    <main class="layout__main">메인</main>
-    <footer class="layout__footer">푸터</footer>
+    <!-- Header -->
+    <header class="header"></header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="main-content">
+            <h2 class="title">자유게시판</h2>
+            <div class="notice">
+                <p class="notice-text">- 광고성 글 게시글 작성 시 이용 제한</p>
+                <p class="notice-text">- 욕설, 비방 글 경고 없이 삭제 조치, 누적 적발 시 계정 정지</p>
+            </div>
+            <div class="content">
+                <div class="privacy-info">
+                    <textarea class="privacy-info-textarea">
+ ==개인정보의 수입 및 활용 동의서==
+     1. 개인정보의 수집·이용
+ - 개인정보의 수집·이용 목적 : 게시 글 접수 · 처리 · 사후 관리 서비스 제공 등 업무 수행
+ - 수집하는 개인정보의 항목 필수항목 : 성명(자동 수집) 선택항목 : 없음</textarea>
+                </div>
+                <form class="form">
+                    <div class="form_group form_writer">
+                        <label class="form-label form-label_writer">작성자</label>
+                        <input class="input" type="text" value="허진희" readonly>
+                    </div>
+                    <div class="form_group form_title">
+                        <label class="form-label form-label_title">제목</label>
+                        <input class="input" type="text" value="" placeholder="제목을 입력하세요">
+                    </div>
+                    <div class="form_group form_content">
+                        <label class="form-label form-labe_content">내용</label>
+                        <textarea class="input" placeholder="내용을 입력하세요"></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button type="reset" class="btn cancel">취소</button>
+                        <button type="submit" class="btn submit">등록</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer"></footer>
 </body>
 </html>

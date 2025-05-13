@@ -30,6 +30,6 @@ class BoardDAOImplTest {
     //   따라서 아래와 같이 만들어둔 save 메서드 호출해서 실행해봄.
     long rows = boardDAO.save(board);
 
-    log.info("저장된 글 갯수 = {}", rows);
+    log.info("상품번호 = {}", rows);
   }
 }
