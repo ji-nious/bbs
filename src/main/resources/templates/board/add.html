@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/add.css" rel="stylesheet">
+    <link th:href="@{/add.css}" rel="stylesheet">
+    <!-- <link href="/static/add.css" rel="stylesheet"> -->
     <title>게시글쓰기</title>
 </head>
 
@@ -28,22 +29,22 @@
  - 개인정보의 수집·이용 목적 : 게시 글 접수 · 처리 · 사후 관리 서비스 제공 등 업무 수행
  - 수집하는 개인정보의 항목 필수항목 : 성명(자동 수집) 선택항목 : 없음</textarea>
                 </div>
-                <form action="/boards/add" class="form">
+                <form action="/boards/add" method="post" class="form">
                     <div class="form_group form_writer">
                         <label class="form-label form-label_writer">작성자</label>
-                        <input class="input" type="text" value="허진희" readonly>
+                        <input class="input" type="text" name="writer" placeholder="작성자" required>
                     </div>
                     <div class="form_group form_title">
                         <label class="form-label form-label_title">제목</label>
-                        <input class="input" type="text" value="" placeholder="제목을 입력하세요">
+                        <input class="input" type="text" name="title" placeholder="제목을 입력하세요" required>
                     </div>
                     <div class="form_group form_content">
                         <label class="form-label form-labe_content">내용</label>
-                        <textarea class="input" placeholder="내용을 입력하세요"></textarea>
+                        <textarea class="input" name="content" placeholder="내용을 입력하세요" required></textarea>
                     </div>
                     <div class="button-group">
-                        <button type="reset" class="btn cancel">취소</button>
-                        <button type="submit" class="btn submit">등록</button>
+                        <button type="reset" class="btn cancel"><a th:href="@{/boards}">취소</a></button>
+                      <button type="submit" class="btn submit">등록</button>
                     </div>
                 </form>
             </div>

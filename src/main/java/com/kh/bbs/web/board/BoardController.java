@@ -2,14 +2,20 @@ package com.kh.bbs.web.board;
 
 import com.kh.bbs.domain.board.svc.BoardSVC;
 import com.kh.bbs.domain.entity.Board;
+import com.kh.bbs.web.form.DetailForm;
 import com.kh.bbs.web.form.SaveForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("/boards")
 @Slf4j
@@ -21,31 +27,71 @@ public class BoardController {
   // 얘가 수행해서 얻은 결과값을 컨트롤러가 view단에 연결해주는 거임
   private final BoardSVC boardSVC;
 
+  //목록
+  @GetMapping       // GET  http://localhost:9080/products
+  public String BoardList(Model model) {
+    List<Board> list = boardSVC.findAll();
+    model.addAttribute("list", list);
+    return "board/all";   //view(resources/templates/board/all)
+  }
 
-  //'글쓰기'버튼
+  //'글쓰기'등록 화면
   //클라이언트가 '글쓰기' 버튼을 누르면 실행될 액션을 정의해주는 거임
   @GetMapping("/add")
   public String addForm() {
-    return "board/add";
+    return "board/add"; //templates/board/add.html
   }
 
-  //'저장'버튼
+  //'글쓰기'등록 처리, '저장'버튼
   @PostMapping("/add")
   public String add(SaveForm saveForm, RedirectAttributes redirectAttributes) {
-    log.info("bwriter = {}, btitle = {}, bcontent = {}", saveForm.getBwriter(), saveForm.getBtitle(), saveForm.getBcontent());
+    log.info("writer = {}, title = {}, content = {}", saveForm.getWriter(), saveForm.getTitle(), saveForm.getContent());
 
     Board board = new Board();
-    board.setWriter(saveForm.getBwriter());
-    board.setTitle(saveForm.getBtitle());
-    board.setContent(saveForm.getBcontent());
+    board.setWriter(saveForm.getWriter());
+    board.setTitle(saveForm.getTitle());
+    board.setContent(saveForm.getContent());
     board.getCreatedAt();
     board.getUpdatedAt();
 
     Long bid = boardSVC.save(board);
 
+    log.info("생성된 게시글 ID: {}", bid);
+
     redirectAttributes.addAttribute("id", bid);
 
-    return "redirect:/board/{id}";
+    return "redirect:/boards/{id}";
+  }
+
+  //게시글조회
+  @GetMapping("/{id}")      // GET http://localhost:9080/products/2?name=홍길동&age=20
+  public String findById(
+      @PathVariable("id") Long id,        // 경로변수 값을 읽어올때
+      Model model
+//      @RequestParam("name") String name,  // 쿼리파라미터 값을 읽어올때
+//      @RequestParam("age") Long age
+  ){
+
+    log.info("id={}",id);
+//    log.info("name={}",name);
+//    log.info("age={}",age);
+
+    Optional<Board> optionalBoard = boardSVC.findById(id);
+    Board findedBoard = optionalBoard.orElseThrow();
+
+    DetailForm detailForm = new DetailForm();
+    detailForm.setTitle(findedBoard.getTitle());
+    detailForm.setWriter(findedBoard.getWriter());
+    detailForm.setContent(findedBoard.getContent());
+    detailForm.setCreatedAt(findedBoard.getCreatedAt());
+    detailForm.setUpdatedAt(findedBoard.getUpdatedAt());
+
+
+    log.info("DetailForm 개체: {}", detailForm);
+
+    model.addAttribute("detailForm",detailForm);
+
+    return "board/detailForm";   //상품상세화면
   }
 
 }

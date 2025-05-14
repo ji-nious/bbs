@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 @SpringBootTest  //Spring Boot 애플리케이션 전체 로딩해서 실제로 DB와 연결되어 있는 환경에서 테스트
 class BoardDAOImplTest {
@@ -32,4 +35,30 @@ class BoardDAOImplTest {
 
     log.info("상품번호 = {}", rows);
   }
+
+
+  @Test
+  @DisplayName("목록조회")
+  void findAll() {
+    List<Board> list = boardDAO.findAll();
+
+//    log.info("상품목록={}", list);
+    for (Board board : list) {
+      log.info("product={}", board);
+    }
+  }
+
+  @Test
+  @DisplayName("게시글조회")
+  void findById() {
+    Long boardId = 18L;
+    Optional<Board> optionalBoard =  boardDAO.findById(boardId);
+    Board findedBoard = optionalBoard.orElseThrow();
+
+    log.info("findedBoard = {}", findedBoard);
+
+
+  }
+
+
 }

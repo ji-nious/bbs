@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/static/add.css" rel="stylesheet">
+    <link th:href="@{/detailForm.css}" rel="stylesheet">
     <title>자유게시판</title>
 </head>
 
@@ -18,26 +19,28 @@
             <h2 class="title">자유게시판</h2>
             <div class="notice">공지</div>
             <div class="content-title">
-                <input class="content-title-input" type="text">
+                <input th:value="${detailForm.title}" class="content-title-input" type="text">
             </div>
             <div class="content">
                 <form class="form">
                     <div class="form-info">
                         <div class="form-info-item info-writer">
                             <div class="items-label">작성자</div>
-                            <input class="items" type="text" readonly>
+                            <input th:value="${detailForm.writer}" class="items" type="text" readonly>
                         </div>
                         <div class="form-info-item info-created">
                             <div class="items-label">작성일</div>
-                            <input class="items" type="text" readonly>
+                            <input th:if="${detailForm.createdAt == null}"
+                                   value="생성일 없음"  class="items" type="text" readonly>
                         </div>
                         <div class="form-info-item info-updated">
                             <div class="items-label">수정일</div>
-                            <input class="items" type="text" readonly>
+                            <input th:if="${detailForm.updatedAt == null}"
+                                   value="수정일 없음"  class="items" type="text" readonly>
                         </div>
                     </div>
                     <div class="form-body">
-                        <input class="form-body-input" type="text">
+                        <textarea th:text="${detailForm.content}" class="form-body-input" readonly></textarea>
                     </div>
                     <div class="button-group">
                         <button class="bnt bnt-update">수정</button>

@@ -3,11 +3,20 @@ package com.kh.bbs.domain.board.dao;
 import com.kh.bbs.domain.entity.Board;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Optional;
 
 
 @Slf4j  //로깅하기 위한 어노테이션
@@ -20,8 +29,34 @@ public class BoardDAOImpl implements BoardDAO{
 
   final NamedParameterJdbcTemplate template; //Entity Board 객체 필드와 SQL 내 파라미터 연결도구
 
+
+  //수동매핑
+  RowMapper<Board> productRowMapper(){
+
+    return (rs, rowNum)->{
+      Board board = new Board();
+      board.setBoardId(rs.getLong("board_id"));
+      board.setTitle(rs.getString("title"));
+      board.setWriter(rs.getString("writer"));
+
+      // created_at 컬럼 매핑
+      Timestamp createdAtTimestamp = rs.getTimestamp("created_at");
+      if (createdAtTimestamp != null) {
+        board.setCreatedAt(createdAtTimestamp.toLocalDateTime());
+      }
+
+      // updated_at 컬럼 매핑
+      Timestamp updatedAtTimestamp = rs.getTimestamp("updated_at");
+      if (updatedAtTimestamp != null) {
+        board.setUpdatedAt(updatedAtTimestamp.toLocalDateTime());
+      }
+
+      return board;
+    };
+  }
+
   /**
-   * 게시판 글쓰기
+   * 게시판 글쓰기(등록)
    * @param board
    * @return
    */
@@ -41,8 +76,54 @@ public class BoardDAOImpl implements BoardDAO{
     KeyHolder keyHolder = new GeneratedKeyHolder();
 
     long rows = template.update(sql.toString(), param, keyHolder, new String[]{"board_id"});
-    log.info("rows={}", rows);
+//    log.info("rows={}", rows);
 
-    return rows;
+    Number pidNumber = (Number)keyHolder.getKeys().get("board_id");
+    long pid = pidNumber.longValue();
+
+    return pid;
   }
+
+  /**
+   * 상품 목록
+   * @return 상품 목록
+   */
+  @Override
+  public List<Board> findAll() {
+    //sql
+    StringBuffer sql = new StringBuffer();
+    sql.append("  SELECT BOARD_ID, TITLE, writer, CREATED_AT, UPDATED_AT ");
+    sql.append("    FROM BOARD ");
+    sql.append("ORDER BY BOARD_ID DESC ");
+
+    //db요청
+    List<Board> list = template.query(sql.toString(), productRowMapper());
+
+    return list;
+  }
+
+  /**
+   * 상품조회
+   * @param id 상품번호
+   * @return 상품정보
+   */
+  @Override
+  public Optional<Board> findById(Long id) {
+    StringBuffer sql = new StringBuffer();
+    sql.append("  SELECT BOARD_ID, TITLE, writer, CONTENT, CREATED_AT, UPDATED_AT ");
+    sql.append("    FROM BOARD ");
+    sql.append("   WHERE BOARD_ID = :id ");
+
+    SqlParameterSource param = new MapSqlParameterSource().addValue("id",id);
+
+    Board board = null;
+    try {
+      board = template.queryForObject(sql.toString(), param, BeanPropertyRowMapper.newInstance(Board.class));
+    } catch (EmptyResultDataAccessException e) { //template.queryForObject() : 레코드를 못찾으면 예외 발생
+      return Optional.empty();
+    }
+
+    return Optional.of(board);
+  }
+
 }
