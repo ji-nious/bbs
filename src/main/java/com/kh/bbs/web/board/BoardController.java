@@ -80,6 +80,7 @@ public class BoardController {
     Board findedBoard = optionalBoard.orElseThrow();
 
     DetailForm detailForm = new DetailForm();
+    detailForm.setBoardId((findedBoard.getBoardId()));
     detailForm.setTitle(findedBoard.getTitle());
     detailForm.setWriter(findedBoard.getWriter());
     detailForm.setContent(findedBoard.getContent());
@@ -92,6 +93,19 @@ public class BoardController {
     model.addAttribute("detailForm",detailForm);
 
     return "board/detailForm";   //상품상세화면
+  }
+
+
+  //게시글 삭제
+  @GetMapping("/{id}/del")
+  public String deleteById (
+    //@RequestParm("id") Long productId
+    @PathVariable("id") Long productId) {
+
+      int rows = boardSVC.deleteById(productId);
+
+      return "redirect:/boards";      // 302 get redirectUrl: http://localhost:9080/products
+
   }
 
 }

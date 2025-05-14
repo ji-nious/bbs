@@ -14,7 +14,9 @@ public interface BoardDAO {
 
   //게시글 상세
   public Optional<Board> findById(Long id);
+
   //게시글 삭제
+  int deleteById(Long id);
 
   //게시글 수정
 }

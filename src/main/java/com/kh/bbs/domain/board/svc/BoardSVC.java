@@ -14,4 +14,6 @@ public interface BoardSVC {
 
   // 게시글 조회
   Optional<Board> findById(Long id);
-}
+
+  // 게시글 삭제
+  int deleteById(Long id);}

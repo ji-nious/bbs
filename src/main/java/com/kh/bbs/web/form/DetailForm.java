@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class DetailForm {
+  private Long boardId;
   private String title;
   private String content;
   private String writer;

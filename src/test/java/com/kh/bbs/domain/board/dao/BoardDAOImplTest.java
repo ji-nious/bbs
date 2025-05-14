@@ -56,8 +56,15 @@ class BoardDAOImplTest {
     Board findedBoard = optionalBoard.orElseThrow();
 
     log.info("findedBoard = {}", findedBoard);
+  }
 
+  @Test
+  @DisplayName("게시글삭제")
+  void deleteById() {
+    Long boardId = 3L;
+    int row = boardDAO.deleteById(boardId);
 
+    log.info("삭제된 행 수 : {}", row);
   }
 
 

@@ -28,6 +28,9 @@ public class BoardSVCImpl implements BoardSVC{
   @Override
   public Optional<Board> findById(Long id) { return boardDAO.findById(id); }
 
+  @Override
+  public int deleteById(Long id) { return boardDAO.deleteById(id); }
+
 
 }
 

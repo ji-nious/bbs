@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -124,6 +125,25 @@ public class BoardDAOImpl implements BoardDAO{
     }
 
     return Optional.of(board);
+  }
+
+  /**
+   * 상품삭제(단건)
+   * @param id 상품번호
+   * @return 삭제건수
+   */
+  @Override
+  public int deleteById(Long id) {
+    StringBuffer sql = new StringBuffer();
+    sql.append("DELETE FROM board ");
+    sql.append(" WHERE board_id = :id ");
+
+    //case1)
+//    SqlParameterSource param = new MapSqlParameterSource().addValue("id",id);
+    //case2)
+    Map<String, Long> param = Map.of("id",id);
+    int rows = template.update(sql.toString(), param); //삭제된 행의 수 반환
+    return rows;
   }
 
 }
