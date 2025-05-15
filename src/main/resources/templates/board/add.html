@@ -81,7 +81,7 @@
           error.textContent = '작성자명을 입력하세요.'
           writer.focus();
           return;
-        } else if (getBytesSize(writer.value) > 10) {
+        } else if (getBytesSize(writer.value) > 30) {
           error.textContent = '작성자명은 10자를 초과할 수 없습니다.'
           writer.focus();
           return

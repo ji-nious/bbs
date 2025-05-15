@@ -36,8 +36,8 @@
                                 <td th:text="${board.boardId}">1</td>
                                 <td><a th:href="@{/boards/{id}(id=${board.boardId})}" th:text="${board.title}">부산 만두 찐맛집 코스 추천좀요</a></td>
                                 <td th:text="${board.writer}">허진희</td>
-                                <td th:text="${board.createdAt}">2025-05-15</td>
-                                <td th:text="${board.updatedAt}">2025-05-15</td>
+                                <td th:text="${#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm:ss')}">2025-05-15</td>
+                                <td th:text="${#temporals.format(board.updatedAt, 'yyyy-MM-dd HH:mm:ss')}">2025-05-15</td>
                             </tr>
                         </tbody>
                     </table>

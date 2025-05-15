@@ -156,13 +156,14 @@ public class BoardDAOImpl implements BoardDAO{
   public int updateById(Long boardId, Board board) {
     StringBuffer sql = new StringBuffer();
     sql.append("UPDATE board ");
-    sql.append("SET title = :title, content = :content ");
+    sql.append("SET title = :title, content = :content, updated_at = :updatedAt ");
     sql.append("WHERE board_id = :boardId ");
 
     //수동매핑
     SqlParameterSource param = new MapSqlParameterSource()
         .addValue("title", board.getTitle())
         .addValue("content", board.getContent())
+        .addValue("updatedAt", board.getUpdatedAt())
         .addValue("boardId", boardId);
 
     int rows = template.update(sql.toString(), param); // 수정된 행의 수 반환
