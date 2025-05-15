@@ -4,6 +4,7 @@ import com.kh.bbs.domain.board.svc.BoardSVC;
 import com.kh.bbs.domain.entity.Board;
 import com.kh.bbs.web.form.DetailForm;
 import com.kh.bbs.web.form.SaveForm;
+import com.kh.bbs.web.form.UpdateForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +40,8 @@ public class BoardController {
   //'글쓰기'등록 화면
   //클라이언트가 '글쓰기' 버튼을 누르면 실행될 액션을 정의해주는 거임
   @GetMapping("/add")
-  public String addForm() {
+  public String addForm(Model model) {
+    model.addAttribute("saveForm", new SaveForm());
     return "board/add"; //templates/board/add.html
   }
 
@@ -51,8 +54,8 @@ public class BoardController {
     board.setWriter(saveForm.getWriter());
     board.setTitle(saveForm.getTitle());
     board.setContent(saveForm.getContent());
-    board.getCreatedAt();
-    board.getUpdatedAt();
+    board.setCreatedAt(LocalDateTime.now());
+    board.setUpdatedAt(LocalDateTime.now());
 
     Long bid = boardSVC.save(board);
 
@@ -107,5 +110,56 @@ public class BoardController {
       return "redirect:/boards";      // 302 get redirectUrl: http://localhost:9080/products
 
   }
+
+
+  //게시글수정화면
+  @GetMapping("/{id}/edit")         // GET http://localhost:9080/2/edit
+  public String updateForm(
+      @PathVariable("id") Long boardId,
+      Model model
+  ) {
+    //1) 유효성체크
+    //2) 기존 게시글 조회하고 내용 담아서 수정페이지로 이동시킴
+    Optional<Board> optionalBoard = boardSVC.findById(boardId);
+    Board findedBoard = optionalBoard.orElseThrow();
+
+    UpdateForm updateForm = new UpdateForm();
+    updateForm.setBoardId(findedBoard.getBoardId());
+    updateForm.setTitle(findedBoard.getTitle());
+    updateForm.setWriter(findedBoard.getWriter());
+    updateForm.setContent(findedBoard.getContent());
+    updateForm.setCreatedAt(findedBoard.getCreatedAt());
+    updateForm.setUpdatedAt(findedBoard.getUpdatedAt());
+
+    log.info("updateForm={}",updateForm);
+
+    model.addAttribute("updateForm",updateForm);
+    return "board/updateForm";
+  }
+
+  //상품수정처리
+  @PostMapping("/{id}/edit")         // POST http://localhost:9080/2/edit
+  public String updateById(
+      @PathVariable("id") Long boardId,
+      UpdateForm updateForm,
+      RedirectAttributes redirectAttributes
+  ){
+    log.info("id={}", boardId);
+    log.info("updateForm={}",updateForm);
+
+    Board board = new Board();
+    board.setBoardId(updateForm.getBoardId());
+    board.setTitle(updateForm.getTitle());
+    board.setWriter(updateForm.getWriter());
+    board.setContent(updateForm.getContent());
+    board.setCreatedAt(updateForm.getCreatedAt());
+    board.setUpdatedAt(LocalDateTime.now());
+
+    int rows = boardSVC.updateById(boardId, board);
+
+    redirectAttributes.addAttribute("id",boardId);
+    return "redirect:/boards/{id}";  // 302 get redirectUrl-> http://localhost/products/id
+  }
+
 
 }

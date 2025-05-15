@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link th:href="@{/css/detailForm.css}" rel="stylesheet">
+  <title>게시글수정</title>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header"></header>
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="main-content">
+      <h2 class="title">자유게시판</h2>
+      <div class="notice">공지</div>
+      <form class="form" id="frm" method="post" th:object="${updateForm}">
+      <div class="content-title">
+        <input id="title" th:field="*{title}" class="content-title-input" type="text">
+        <span id="errTitle"></span>
+      </div>
+      <div class="content">
+          <div class="form-info">
+            <div class="form-info-item info-boardId">
+              <div class="items-label">순번</div>
+              <input id="boardId" th:field="*{boardId}" class="items" type="text" readonly>
+            </div>
+            <div class="form-info-item info-writer">
+              <div class="items-label">작성자</div>
+              <input id="writer" th:field="*{writer}" class="items" type="text" readonly>
+            </div>
+            <div class="form-info-item info-created">
+              <div class="items-label">작성일</div>
+              <input th:field="*{createdAt}" value="생성일 없음" class="items" type="text" id="createdAt">
+            </div>
+            <div class="form-info-item info-updated">
+              <div class="items-label">수정일</div>
+              <input th:field="*{updatedAt}" value="수정일 없음" class="items" type="text" id="updatedAt">
+            </div>
+          </div>
+          <div class="form-body">
+            <textarea id="content" th:field="*{content}" class="form-body-input"></textarea>
+            <span id="errContent"></span>
+          </div>
+          <div class="button-group">
+            <button class="bnt bnt-update" type="button" id="btnUpdate">저장</button>
+            <button class="bnt bnt-delete" type="button" id="btnCancel">취소</button>
+            <button class="bnt bnt-list" type="button" id="btnFindAll">목록</button>
+          </div>
+        </form>
+      </div>
+      <div class="reply">
+        댓글창
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer"></footer>
+
+  <script type="module">
+    //저장
+    import { getBytesSize }  from '/js/common.js';
+
+    //저장
+    const frm = document.getElementById('frm')
+    const title = document.getElementById('title');
+    const content = document.getElementById('content');
+    const errTitle = document.getElementById('errTitle');
+    const errContent = document.getElementById('errContent');
+    const btnUpdate = document.getElementById('btnUpdate');
+
+    btnUpdate.addEventListener('click', e => {
+      e.preventDefault(); //submit 기본 동작(제출, 새로고침 등) 방지. 제출하기 전에 유효성 검사해야하니까.
+
+      //유효성 체크
+      // console.log('등록버튼 클릭됨!')
+
+      //제목
+      if (title.value.length == 0) {
+        console.log('제목을 입력하세요.')
+        errTitle.textContent = '제목을 입력하세요'
+        title.focus();
+        return;
+      } else if (getBytesSize(title.value) > 300) {
+        errTitle.textContent = '제목은 100자를 초과할 수 없습니다.'
+        title.focus();
+        return
+      } else {
+        errTitle.textContent = '';
+      }
+
+      if (content.value.length == 0) {
+        console.log('본문을 입력하세요.')
+        errContent.textContent = '제목을 입력하세요'
+        content.focus();
+        return;
+      } else if (getBytesSize(content.value) > 30000) {
+        errContent.textContent = '제목은 100자를 초과할 수 없습니다.'
+        content.focus();
+        return
+      } else {
+        errContent.textContent = '';
+      }
+
+      console.log("Content Value: ", content.value);
+      frm.submit();
+
+    }, false);
+
+
+    //취소
+    const $btnCancel = document.getElementById('btnCancel');
+    $btnCancel.addEventListener('click', e => {
+      const $boardId = document.getElementById('boardId');
+      const boardId = $boardId.value;
+
+      console.log(boardId)
+
+      location.href = `/boards/${boardId}`  //get http://localhost:9090/boards/${boardId}
+    }, false);
+
+    //목록
+    const $btnFindAll = document.getElementById('btnFindAll');
+    $btnFindAll.addEventListener('click', e => {
+      location.href = '/boards'  //get http://localhost:9090/boards
+    }, false);
+
+  </script>
+</body>
+
+</html>

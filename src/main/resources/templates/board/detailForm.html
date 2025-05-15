@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link th:href="@{/detailForm.css}" rel="stylesheet">
-    <title>자유게시판</title>
+    <link th:href="@{/css/detailForm.css}" rel="stylesheet">
+    <title>게시글 상세</title>
 </head>
 
 <body>
@@ -22,7 +22,7 @@
                 <input th:value="${detailForm.title}" class="content-title-input" type="text">
             </div>
             <div class="content">
-                <form class="form">
+                <form class="form" method="" th:object="${detailForm}">
                     <div class="form-info">
                         <div class="form-info-item info-boardId">
                             <div class="items-label" >순번</div>
@@ -34,20 +34,18 @@
                         </div>
                         <div class="form-info-item info-created">
                             <div class="items-label">작성일</div>
-                            <input th:if="${detailForm.createdAt == null}"
-                                   value="생성일 없음"  class="items" type="text" readonly>
+                            <input th:value="${#temporals.format(detailForm.createdAt, 'yyyy-MM-dd HH:mm:ss')}" class="items" type="text" readonly>
                         </div>
                         <div class="form-info-item info-updated">
                             <div class="items-label">수정일</div>
-                            <input th:if="${detailForm.updatedAt == null}"
-                                   value="수정일 없음"  class="items" type="text" readonly>
+                            <input th:value="${#temporals.format(detailForm.updatedAt, 'yyyy-MM-dd HH:mm:ss')}" class="items" type="text" readonly>
                         </div>
                     </div>
                     <div class="form-body">
                         <textarea th:text="${detailForm.content}" class="form-body-input" readonly></textarea>
                     </div>
                     <div class="button-group">
-                        <button class="bnt bnt-update">수정</button>
+                        <button class="bnt bnt-update" type="button" id="btnUpdate">수정</button>
                         <button class="bnt bnt-delete" type="button" id="btnDelete">삭제</button>
                         <button class="bnt bnt-list" type="button" id="btnFindAll">목록</button>
                     </div>
@@ -57,6 +55,7 @@
                 댓글창
             </div>
         </div>
+    
     </main>
 
     <!-- Footer -->
@@ -70,6 +69,18 @@
 
 
     <script>
+        //수정
+        const $btnUpdate = document.getElementById('btnUpdate');
+        $btnUpdate.addEventListener('click', e=> {
+          const $boardId = document.getElementById('boardId');
+          const boardId = $boardId.value;
+
+          console.log(boardId)
+          
+          location.href = `/boards/${boardId}/edit` //GET http://localhost:9080/boards/18/edit
+        }, false)
+
+         
         //삭제
         const $btnDelete = document.getElementById('btnDelete');
         $btnDelete.addEventListener('click', e=> {

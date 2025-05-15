@@ -16,4 +16,10 @@ public interface BoardSVC {
   Optional<Board> findById(Long id);
 
   // 게시글 삭제
-  int deleteById(Long id);}
+  int deleteById(Long id);
+
+  // 게시글 수정
+  int updateById(Long boardId, Board board);
+
+}
+

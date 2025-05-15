@@ -2,6 +2,7 @@ package com.kh.bbs.domain.board.dao;
 
 import com.kh.bbs.domain.entity.Board;
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +68,27 @@ class BoardDAOImplTest {
     log.info("삭제된 행 수 : {}", row);
   }
 
+  @Test
+  @DisplayName("게시글수정")
+  void UpdateById() {
+    //수정할 값
+    Long boardId = 18L;
+    Board board = new Board();
+    board.setTitle("우아앙 진짜 바뀌나?");
+    board.setContent("진짜 바뀌다니니이이!!!");
+
+    //수정
+    int row = boardDAO.updateById(boardId, board);
+
+    //수정한 객체가 있는지 확인
+    Optional<Board> optBoard = boardDAO.findById(boardId);
+    Board modifiedBoard = optBoard.orElseThrow(); //수정된 객체가 존재하면 그 객체 반환, 아니면 예외 발생
+
+    //검증
+    Assertions.assertThat(modifiedBoard.getTitle()).isEqualTo("우아앙 진짜 바뀌나?");
+    Assertions.assertThat(modifiedBoard.getContent()).isEqualTo("진짜 바뀌다니니이이!!!");
+
+    log.info("수정된 게시글 수 : {}", row);
+  }
 
 }

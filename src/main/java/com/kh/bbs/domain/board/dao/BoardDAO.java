@@ -19,4 +19,5 @@ public interface BoardDAO {
   int deleteById(Long id);
 
   //게시글 수정
+  int updateById(Long Id, Board board);
 }

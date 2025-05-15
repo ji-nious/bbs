@@ -22,10 +22,10 @@ body {
 
 .main {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    height: 800px;
 }
 
 .main-content {
@@ -109,7 +109,7 @@ body {
 
 .form-info {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-center;
     align-items: center;
 }
 

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link th:href="@{/add.css}" rel="stylesheet">
+    <link th:href="@{/css/add.css}" rel="stylesheet">
     <!-- <link href="/static/add.css" rel="stylesheet"> -->
     <title>게시글쓰기</title>
 </head>
@@ -29,22 +29,23 @@
  - 개인정보의 수집·이용 목적 : 게시 글 접수 · 처리 · 사후 관리 서비스 제공 등 업무 수행
  - 수집하는 개인정보의 항목 필수항목 : 성명(자동 수집) 선택항목 : 없음</textarea>
                 </div>
-                <form action="/boards/add" method="post" class="form">
+                <form id="frm" action="/boards/add" method="post" class="form" th:object="${saveForm}">
                     <div class="form_group form_writer">
                         <label class="form-label form-label_writer">작성자</label>
-                        <input class="input" type="text" name="writer" placeholder="작성자" required>
+                        <input id="writer" class="input" type="text" name="writer" placeholder="작성자" th:field="*{writer}" required>
                     </div>
                     <div class="form_group form_title">
                         <label class="form-label form-label_title">제목</label>
-                        <input class="input" type="text" name="title" placeholder="제목을 입력하세요" required>
+                        <input id = "title" class="input" type="text" name="title" placeholder="제목을 입력하세요" th:field="*{title}"required>
                     </div>
                     <div class="form_group form_content">
                         <label class="form-label form-labe_content">내용</label>
-                        <textarea class="input" name="content" placeholder="내용을 입력하세요" required></textarea>
+                        <textarea id = "content" class="input" name="content" placeholder="내용을 입력하세요" th:field="*{content}" required></textarea>
                     </div>
+                    <span id="error"></span>
                     <div class="button-group">
-                        <button type="reset" class="btn cancel"><a th:href="@{/boards}">취소</a></button>
-                      <button type="submit" class="btn submit">등록</button>
+                      <button id="btnCancel" type="button" class="btn cancel">취소</button>
+                      <button id="btnUpdate" type="submit" class="btn submit">등록</button>
                     </div>
                 </form>
             </div>
@@ -53,5 +54,83 @@
 
     <!-- Footer -->
     <footer class="footer"></footer>
+
+    <script type="module">
+      //등록 유효성
+      //저장
+      import { getBytesSize }  from '/js/common.js';
+
+      const btnUpdate = document.getElementById('btnUpdate');
+
+      const frm = document.getElementById('frm')
+      const title = document.getElementById('title');
+      const content = document.getElementById('content');
+      const writer = document.getElementById('writer');
+      const error = document.getElementById('error');
+
+      btnUpdate.addEventListener('click', e => {
+        e.preventDefault(); //submit 기본 동작(제출, 새로고침 등) 방지. 제출하기 전에 유효성 검사해야하니까.
+
+        //유효성 체크
+        // console.log('등록버튼 클릭됨!')
+
+
+        //작성자
+         if (writer.value.length == 0) {
+          console.log('작성자명을 입력하세요.')
+          error.textContent = '작성자명을 입력하세요.'
+          writer.focus();
+          return;
+        } else if (getBytesSize(writer.value) > 10) {
+          error.textContent = '작성자명은 10자를 초과할 수 없습니다.'
+          writer.focus();
+          return
+        } else {
+          error.textContent = '';
+        }
+
+
+        //제목
+        if (title.value.length == 0) {
+          console.log('제목을 입력하세요.')
+          error.textContent = '제목을 입력하세요'
+          title.focus();
+          return;
+        } else if (getBytesSize(title.value) > 100) {
+          error.textContent = '제목은 100자를 초과할 수 없습니다.'
+          title.focus();
+          return
+        } else {
+          error.textContent = '';
+        }
+
+        //본문
+        if (content.value.length == 0) {
+          console.log('본문을 입력하세요.')
+          error.textContent = '내용을 입력하세요'
+          content.focus();
+          return;
+        } else if (getBytesSize(content.value) > 30000) {
+          error.textContent = '내용은 3000자를 초과할 수 없습니다.'
+          content.focus();
+          return
+        } else {
+          error.textContent = '';
+        }
+
+        console.log("Content Value: ", content.value);
+        frm.submit();
+
+      }, false);
+
+
+      // 취소
+    const $btnCancel = document.getElementById('btnCancel');
+    $btnCancel.addEventListener('click', e => {
+      location.href = `/boards`  //get http://localhost:9090/boards/${boardId}
+    }, false);
+
+    </script>
+
 </body>
 </html>

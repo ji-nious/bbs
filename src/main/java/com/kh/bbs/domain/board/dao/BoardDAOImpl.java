@@ -64,8 +64,8 @@ public class BoardDAOImpl implements BoardDAO{
   @Override
   public Long save(Board board) {
     StringBuffer sql = new StringBuffer();
-    sql.append("INSERT INTO board (board_id, title, content, writer) ");
-    sql.append("     VALUES (board_board_id_seq.nextval, :title , :content, :writer) ");
+    sql.append("INSERT INTO board (board_id, title, content, writer, created_at, updated_at) ");
+    sql.append("     VALUES (board_board_id_seq.nextval, :title , :content, :writer, :createdAt, :updatedAt ) ");
 
     //자바객체 필드명을 자동으로 파라미터명으로 인식. 해당 값을 SQL 쿼리의 파라미터에 자동으로 바인딩. Map 형태로 저장.
     BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(board);
@@ -143,6 +143,30 @@ public class BoardDAOImpl implements BoardDAO{
     //case2)
     Map<String, Long> param = Map.of("id",id);
     int rows = template.update(sql.toString(), param); //삭제된 행의 수 반환
+    return rows;
+  }
+
+  /**
+   * 상품 수정
+   * @param boardId 상품번호
+   * @param board 상품정보
+   * @return 상품 수정 건수
+   */
+  @Override
+  public int updateById(Long boardId, Board board) {
+    StringBuffer sql = new StringBuffer();
+    sql.append("UPDATE board ");
+    sql.append("SET title = :title, content = :content ");
+    sql.append("WHERE board_id = :boardId ");
+
+    //수동매핑
+    SqlParameterSource param = new MapSqlParameterSource()
+        .addValue("title", board.getTitle())
+        .addValue("content", board.getContent())
+        .addValue("boardId", boardId);
+
+    int rows = template.update(sql.toString(), param); // 수정된 행의 수 반환
+
     return rows;
   }
 
