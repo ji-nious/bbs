@@ -1,10 +1,10 @@
-package com.kh.bbs.web.board;
+package com.kh.bbs.web.controller;
 
 import com.kh.bbs.domain.board.svc.BoardSVC;
 import com.kh.bbs.domain.entity.Board;
-import com.kh.bbs.web.form.DetailForm;
-import com.kh.bbs.web.form.SaveForm;
-import com.kh.bbs.web.form.UpdateForm;
+import com.kh.bbs.web.form.bbs.DetailForm;
+import com.kh.bbs.web.form.bbs.SaveForm;
+import com.kh.bbs.web.form.bbs.UpdateForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

@@ -1,13 +1,11 @@
-package com.kh.bbs.web.form;
+package com.kh.bbs.domain.entity;
 
 import lombok.Data;
-
 import java.time.LocalDateTime;
 
 @Data
-public class DetailForm {
-  private Long boardId;
-  private String title;
+public class Comment {
+  private Long commentsId;
   private String content;
   private String writer;
   private LocalDateTime createdAt;

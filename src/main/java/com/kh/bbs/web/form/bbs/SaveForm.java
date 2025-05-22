@@ -1,14 +1,11 @@
-package com.kh.bbs.web.form;
+package com.kh.bbs.web.form.bbs;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
-public class UpdateForm {
-  private Long boardId;
+public class SaveForm {
 
   @NotBlank(message = "제목은 필수입니다.")
   @Size(min=1, max=100, message = "제목은 100자를 초과할 수 없습니다.")
@@ -19,10 +16,9 @@ public class UpdateForm {
   private String content;
 
   @NotBlank(message = "작성자명은 필수입니다.")
-  @Size(min=1, max=10, message = "작성자명은 100자를 초과할 수 없습니다.")
+  @Size(min=1, max=30, message = "작성자명은 10자를 초과할 수 없습니다.")
   private String writer;
 
-
-  private LocalDateTime createdAt;
-  private LocalDateTime updatedAt;
+  private String createdAt;
+  private String updatedAt;
 }
