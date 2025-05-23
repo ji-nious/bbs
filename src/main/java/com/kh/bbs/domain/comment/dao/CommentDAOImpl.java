@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -23,6 +24,22 @@ import java.util.Optional;
 public class CommentDAOImpl implements CommentDAO {
 
   private final NamedParameterJdbcTemplate template;
+
+  //수동매핑
+  private RowMapper<Comment> doRowMapper(){
+    //내부적으로 JDBC가 SQL 실행 -> ResultSet 획득,
+    // doRowMapper()를 각 행마다 호출 -> rs, rowNum전달,
+    // 각각 Comment 객체로 변환됨 -> List에 담김
+
+    return(rs, rowNum)-> {
+      Comment comment = new Comment();
+      comment.setCommentsId(rs.getLong("comments_id"));
+      comment.setContent(rs.getString("content"));
+      comment.setWriter(rs.getString("writer"));
+      return comment;
+    };
+  }
+
 
   /**
    * 댓글 저장
@@ -61,6 +78,34 @@ public class CommentDAOImpl implements CommentDAO {
     return list;
   }
 
+
+  /**
+   * 댓글목록 - 페이징
+   * @param pageNo
+   * @param numOfRows
+   * @return
+   */
+  @Override
+  public List<Comment> findAll(int pageNo, int numOfRows) {
+    //sql
+    StringBuffer sql = new StringBuffer();
+    sql.append("SELECT comments_id,content,writer ");
+    sql.append("FROM COMMENTS ");
+    sql.append("ORDER BY comments_id asc ");
+    sql.append("OFFSET (:pageNo -1) * :numOfRows ROWS ");
+    sql.append("FETCH NEXT :numOfRows ROWS only ");
+
+    Map<String, Integer> map = Map.of("pageNo", pageNo, "numOfRows", numOfRows);
+    List<Comment> list = template.query(sql.toString(), map, doRowMapper());
+
+    return list;
+  }
+
+  @Override
+  public int getTotalCount() {
+    return 0;
+  }
+
   /**
    * 댓글 삭제
    * @param id
@@ -78,6 +123,12 @@ public class CommentDAOImpl implements CommentDAO {
   }
 
 
+  /**
+   * 댓글 수정
+   * @param id
+   * @param comment
+   * @return 수정된 행의 수
+   */
   @Override
   public int updateById(Long id, Comment comment) {
     StringBuffer sql = new StringBuffer();
@@ -97,6 +148,12 @@ public class CommentDAOImpl implements CommentDAO {
     return rows;
   }
 
+
+  /**
+   * 댓글 조회
+   * @param id
+   * @return 댓글객체
+   */
   @Override
   public Optional<Comment> findById(Long id) {
     StringBuffer sql = new StringBuffer();

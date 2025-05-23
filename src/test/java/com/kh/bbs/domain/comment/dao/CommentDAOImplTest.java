@@ -58,6 +58,21 @@ class CommentDAOImplTest {
     Assertions.assertThat(commentList.size()).isEqualTo(6);
   }
 
+  @Test
+  @DisplayName("댓글목록-페이징")
+  void findAllPaging(){
+    //given
+
+    //when
+    List<Comment> list = commentDAO.findAll(1, 10);
+
+    //then
+    log.info("총 댓글 수: {}", list.size());
+    for (Comment comment : list) {
+      log.info("comment = {}", comment);
+    }
+  }
+
 
   @Test
   @DisplayName("댓글찾기")

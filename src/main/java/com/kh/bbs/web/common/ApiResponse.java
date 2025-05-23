@@ -71,9 +71,12 @@ public class ApiResponse<T> {
   }
 
   //API 응답 생성 메소드 - 상세 오류 포함
-  public static <T> ApiResponse<T> withDetails(ApiResponseCode responseCode, )
+  public static <T> ApiResponse<T> withDetails(ApiResponseCode responseCode, Map<String, String> details, T body){
+    return new ApiResponse<>(new Header(responseCode.getRtcd(), responseCode.getRtmsg(), details), body);
+  }
 
-
-
+  public static <T> ApiResponse<T> withDetails(ApiResponseCode responseCode, Map<String, String> details, T body, Paging paging) {
+    return new ApiResponse<>(new Header(responseCode.getRtcd(), responseCode.getRtmsg(), details), body, paging);
+  }
 
 }
