@@ -1,185 +1,371 @@
 <!DOCTYPE html>
 <html lang="en">
-<html xmlns:th="http://www.thymeleaf.org">
+  <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link th:href="@{/css/detailForm.css}" rel="stylesheet" />
+      <!-- <link href="/static/css/detailForm.css" rel="stylesheet"> -->
+      <title>게시글 상세</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link th:href="@{/css/detailForm.css}" rel="stylesheet">
-    <!-- <link href="/static/css/detailForm.css" rel="stylesheet"> -->
-    <title>게시글 상세</title>
-</head>
-
-<body>
-    <!-- UpperMost-->
-    <div class="uppermost">
+    <body>
+      <!-- UpperMost-->
+      <div class="uppermost">
         <div class="member">
-            <button class="btn member_login">log in</button>
-            <button class="btn member_join">join</button>
+          <button class="btn member_login">log in</button>
+          <button class="btn member_join">join</button>
         </div>
-    </div>
+      </div>
 
-    <!-- Header -->
-    <header class="header"></header>
+      <!-- Header -->
+      <header class="header"></header>
 
-    <!-- Main Content -->
-    <main class="main">
+      <!-- Main Content -->
+      <main class="main">
         <div class="main-content">
-            <h2 class="title">자유게시판</h2>
-            <div class="notice">공지</div>
-            <div class="content-title">
-                <input th:value="${detailForm.title}" class="content-title-input" type="text">
+          <h2 class="title">자유게시판</h2>
+          <div class="notice">공지</div>
+          <div class="content-title">
+            <input
+              th:value="${detailForm.title}"
+              class="content-title-input"
+              type="text"
+            />
+          </div>
+          <div class="content">
+            <form class="form" method="" th:object="${detailForm}">
+              <div class="form-info">
+                <div class="form-info-item info-boardId">
+                  <div class="items-label">순번</div>
+                  <input
+                    id="boardId"
+                    th:value="${detailForm.boardId}"
+                    class="items"
+                    type="text"
+                    readonly
+                  />
+                </div>
+                <div class="form-info-item info-writer">
+                  <div class="items-label">작성자</div>
+                  <input
+                    th:value="${detailForm.writer}"
+                    class="items"
+                    type="text"
+                    readonly
+                  />
+                </div>
+                <div class="form-info-item info-created">
+                  <div class="items-label">작성일</div>
+                  <input
+                    th:value="${#temporals.format(detailForm.createdAt, 'yyyy-MM-dd HH:mm:ss')}"
+                    class="items"
+                    type="text"
+                    readonly
+                  />
+                </div>
+                <div class="form-info-item info-updated">
+                  <div class="items-label">수정일</div>
+                  <input
+                    th:value="${#temporals.format(detailForm.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"
+                    class="items"
+                    type="text"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="form-body">
+                <textarea
+                  th:text="${detailForm.content}"
+                  class="form-body-input"
+                  readonly
+                ></textarea>
+              </div>
+              <div class="button-group">
+                <button class="bnt bnt-update" type="button" id="btnUpdate">
+                  수정
+                </button>
+                <button class="bnt bnt-delete" type="button" id="btnDelete">
+                  삭제
+                </button>
+                <button class="bnt bnt-list" type="button" id="btnFindAll">
+                  목록
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="reply">
+            <div class="reply_main">
+              <form id="commentForm" class="form_reply">
+                <input
+                  type="hidden"
+                  id="boardIdHidden"
+                  th:value="${detailForm.boardId}"
+                />
+                <div class="form_group form_writer">
+                  <input
+                    id="writer"
+                    class="input-writer"
+                    type="text"
+                    name="writer"
+                    placeholder="작성자"
+                    th:value="${writer}"
+                    required
+                  />
+                </div>
+                <div class="reply_cnt_btn">
+                  <div class="form_group form_content_reply">
+                    <textarea
+                      id="content"
+                      class="input_reply"
+                      name="content"
+                      placeholder="바른말 고운말"
+                      th:value="${content}"
+                      required
+                    ></textarea>
+                  </div>
+
+                  <div class="button-group_reply">
+                    <button
+                      id="btnUpdate_reply"
+                      type="submit"
+                      class="btn_reply submit_reply"
+                    >
+                      등록
+                    </button>
+                    <button
+                      id="btnCancel_reply"
+                      type="button"
+                      class="btn_reply cancel_reply"
+                    >
+                      취소
+                    </button>
+                  </div>
+                </div>
+                <span id="error_reply"></span>
+              </form>
             </div>
-            <div class="content">
-                <form class="form" method="" th:object="${detailForm}">
-                    <div class="form-info">
-                        <div class="form-info-item info-boardId">
-                            <div class="items-label" >순번</div>
-                            <input  id="boardId" th:value="${detailForm.boardId}" class="items" type="text" readonly>
-                        </div>
-                        <div class="form-info-item info-writer">
-                            <div class="items-label">작성자</div>
-                            <input th:value="${detailForm.writer}" class="items" type="text" readonly>
-                        </div>
-                        <div class="form-info-item info-created">
-                            <div class="items-label">작성일</div>
-                            <input th:value="${#temporals.format(detailForm.createdAt, 'yyyy-MM-dd HH:mm:ss')}" class="items" type="text" readonly>
-                        </div>
-                        <div class="form-info-item info-updated">
-                            <div class="items-label">수정일</div>
-                            <input th:value="${#temporals.format(detailForm.updatedAt, 'yyyy-MM-dd HH:mm:ss')}" class="items" type="text" readonly>
-                        </div>
-                    </div>
-                    <div class="form-body">
-                        <textarea th:text="${detailForm.content}" class="form-body-input" readonly></textarea>
-                    </div>
-                    <div class="button-group">
-                        <button class="bnt bnt-update" type="button" id="btnUpdate">수정</button>
-                        <button class="bnt bnt-delete" type="button" id="btnDelete">삭제</button>
-                        <button class="bnt bnt-list" type="button" id="btnFindAll">목록</button>
-                    </div>
-                </form>
-            </div>
-<!--            <div class = "reply">-->
-<!--                <div class="reply_main">-->
-<!--                    <form id="commentForm" class="form_reply">-->
-<!--                        <input type="hidden" id="boardIdHidden" th:value="${detailForm.boardId}">-->
-<!--                        <div class="form_group form_writer">-->
-<!--                            <input id="writer" class="input-writer" type="text" name="writer" placeholder="작성자" th:field="*{writer}" required>-->
-<!--                        </div>-->
-<!--                        <div class="reply_cnt_btn">-->
-<!--                        <div class="form_group form_content_reply">-->
-<!--                            <textarea id = "content" class="input_reply" name="content" placeholder="바른말 고운말" th:field="*{content}" required></textarea>-->
-<!--                        </div>-->
-
-<!--                        <div class="button-group_reply">-->
-<!--                        <button id="btnUpdate_reply" type="submit" class="btn_reply submit_reply">등록</button>-->
-<!--                        <button id="btnCancel_reply" type="button" class="btn_reply cancel_reply">취소</button>-->
-
-<!--                        </div>-->
-<!--                        </div>-->
-<!--                        <span id="error_reply"></span>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--                <div class="reply_list">목록-->
-<!--                </div>-->
-
-<!--            </div>-->
+            <div class="reply_list">목록</div>
+          </div>
         </div>
-    
-    </main>
+      </main>
 
-    <!-- Footer -->
-    <footer class="footer"></footer>
+      <!-- Footer -->
+      <footer class="footer"></footer>
 
-    <dialog id="modalDel">
+      <dialog id="modalDel">
         <p>삭제하시겠습니까?</p>
         <button class="btnYes">예</button>
         <button class="btnNo">아니오</button>
-    </dialog>
+      </dialog>
 
-
-    <script>
+      <script>
         //수정
-        const $btnUpdate = document.getElementById('btnUpdate');
-        $btnUpdate.addEventListener('click', e=> {
-          const $boardId = document.getElementById('boardId');
-          const boardId = $boardId.value;
+        const $btnUpdate = document.getElementById("btnUpdate");
+        $btnUpdate.addEventListener(
+          "click",
+          (e) => {
+            const $boardId = document.getElementById("boardId");
+            const boardId = $boardId.value;
 
-          console.log(boardId)
-          
-          location.href = `/boards/${boardId}/edit` //GET http://localhost:9080/boards/18/edit
-        }, false)
+            console.log(boardId);
 
-         
+            location.href = `/boards/${boardId}/edit`; //GET http://localhost:9080/boards/18/edit
+          },
+          false
+        );
+
         //삭제
-        const $btnDelete = document.getElementById('btnDelete');
-        $btnDelete.addEventListener('click', e=> {
-            const $boardId = document.getElementById('boardId');
+        const $btnDelete = document.getElementById("btnDelete");
+        $btnDelete.addEventListener(
+          "click",
+          (e) => {
+            const $boardId = document.getElementById("boardId");
             const id = $boardId.value;
 
-            const $modalDel = document.getElementById("modalDel")
-            const $btnYes = document.querySelector(".btnYes")
-            const $btnNo = document.querySelector(".btnNo")
+            const $modalDel = document.getElementById("modalDel");
+            const $btnYes = document.querySelector(".btnYes");
+            const $btnNo = document.querySelector(".btnNo");
 
             //모달창 띄우기
             $modalDel.showModal();
 
             // 모달창 닫힐 때
-            $modalDel.addEventListener('close', e=>{
-                console.log($modalDel.returnValue);
-                if($modalDel.returnValue == "yes") {
-                    location.href = `/boards/${id}/del`;
-                }
+            $modalDel.addEventListener("close", (e) => {
+              console.log($modalDel.returnValue);
+              if ($modalDel.returnValue == "yes") {
+                location.href = `/boards/${id}/del`;
+              }
             });
 
             // 예 버튼 클릭 시
-            $btnYes.addEventListener('click', e=> {
-                $modalDel.close('yes'); //yes값을 반환하며 모달창을 닫음
-            })
+            $btnYes.addEventListener("click", (e) => {
+              $modalDel.close("yes"); //yes값을 반환하며 모달창을 닫음
+            });
 
             // 아니오 버튼 클릭 시
-            $btnNo.addEventListener('click', e=>{
-                $modalDel.close("no");
-            })
-
-        }, false)
+            $btnNo.addEventListener("click", (e) => {
+              $modalDel.close("no");
+            });
+          },
+          false
+        );
 
         //목록
-        const $btnFindAll = document.getElementById('btnFindAll');
-        $btnFindAll.addEventListener('click', e => {
-            location.href = '/boards'  //get http://localhost:9090/boards
-        }, false)
+        const $btnFindAll = document.getElementById("btnFindAll");
+        $btnFindAll.addEventListener(
+          "click",
+          (e) => {
+            location.href = "/boards"; //get http://localhost:9090/boards
+          },
+          false
+        );
 
+        //<댓글기능 추가>
+        //1. DOMContentLoaded 시 댓글 목록 조회
+        document.addEventListener("DOMContentLoaded", () => {
+          const boardId = document.getElementById("boardIdHidden").value;
+          loadComments(boardId);
+        });
+        //HTML 페이지가 다 불러와졌을 때 이 안의 코드 실행.
+        //loadComments(boardId) : 아래에 정의할 함수. 실제로 댓글 목록을 서버에서 불러오고 HTML안 .reply_list에 댓글들 뿌려줌
 
-<!--        //댓글기능-생성-->
-<!--        document.getElementById('commentForm').addEventListener('submit', function(e) {-->
-<!--            e.preventDefault(); //새로고침 막기-->
+        //2. 댓글 목록 조회 함수 정의(loadComments())
+        function loadComments(boardId) {
+          fetch(`/api/comments?boardId=${boardId}`)
+            .then((res) => res.json())
+            .then((data) => {
+              const listEl = document.querySelector(".reply_list");
+              listEl.innerHTML = "";
 
-<!--            const boardId = document.getElementById('boardId').value;-->
-<!--            const writer = document.getElementById('writer').value;-->
-<!--            const content = document.getElementById('content').value;-->
+              if (data.header.rtcd === "S00") {
+                const comments = data.body;
 
-<!--            //ApiController에게 요청-->
-<!--            fetch('/api/comments', {-->
-<!--               method: 'POST',-->
-<!--               headers: { 'Content-Type': 'application/json'},-->
-<!--               body: JSON.stringify({ boardId, writer, content })-->
-<!--            })-->
-<!--            .then(res => res.json())-->
-<!--            .then(data => {-->
-<!--                if (data.code === 's-00') {-->
-<!--                    alert('댓글 등록 완료!');-->
-<!--                    loadComments(boardId); //댓글 목록 갱신-->
-<!--                } else {-->
-<!--                    document.getElementById('error_reply').textContent = 등록 실패!';-->
-<!--                }-->
-<!--            });-->
-<!--        });-->
+                if (comments.length === 0) {
+                  listEl.textContent = "댓글이 없습니다.";
+                  return;
+                }
 
+                comments.forEach((comment) => {
+                  const div = document.createElement("div");
+                  div.classList.add("comment-item");
+                  div.innerHTML = `
+            <p class="comment-writer"><strong>${comment.writer}</strong></p>
+            <p class="comment-content" data-id="${comment.commentsId}">${comment.content}</p>
+            <div class="comment-actions">
+              <button class="btn-edit" data-id="${comment.commentsId}">수정</button>
+              <button class="btn-delete" data-id="${comment.commentsId}">삭제</button>
+            </div>
+            <hr>
+          `;
+                  listEl.appendChild(div);
+                });
+              } else {
+                listEl.textContent = "댓글을 불러오지 못했습니다.";
+              }
+            });
+        }
 
-    </script>
+        //3. 댓글 등록 이벤트 핸들러
+        document
+          .getElementById("commentForm")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
 
-</body>
+            const boardId = document.getElementById("boardIdHidden").value;
+            const writer = document.getElementById("writer").value;
+            const content = document.getElementById("content").value;
 
+            fetch("/api/comments", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ boardId, writer, content }),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.header.rtcd === "S00") {
+                  this.reset();
+                  loadComments(boardId);
+                } else {
+                  document.getElementById("error_reply").textContent =
+                    "댓글 등록 실패!";
+                }
+              });
+          });
+
+        //4. 댓글 수정
+        document.addEventListener("click", function (e) {
+          if (e.target.classList.contains("btn-edit")) {
+            const commentId = e.target.dataset.id;
+            const contentP = document.querySelector(
+              `.comment-content[data-id="${commentId}"]`
+            );
+            const originalContent = contentP.textContent;
+
+            // 입력창 + 저장/취소 버튼으로 바꾸기
+            contentP.innerHTML = `
+      <input type="text" class="edit-input" value="${originalContent}">
+      <button class="btn-save" data-id="${commentId}">저장</button>
+      <button class="btn-cancel" data-id="${commentId}">취소</button>
+    `;
+          }
+
+          // 저장 버튼
+          if (e.target.classList.contains("btn-save")) {
+            const commentId = e.target.dataset.id;
+            const input = document.querySelector(
+              `.comment-content[data-id="${commentId}"] .edit-input`
+            );
+            const newContent = input.value;
+            const boardId = document.getElementById("boardIdHidden").value;
+
+            fetch(`/api/comments/${commentId}`, {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ content: newContent }),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.header.rtcd === "S00") {
+                  loadComments(boardId);
+                }
+              });
+          }
+
+          // 취소 버튼
+          if (e.target.classList.contains("btn-cancel")) {
+            const commentId = e.target.dataset.id;
+            const contentP = document.querySelector(
+              `.comment-content[data-id="${commentId}"]`
+            );
+            const boardId = document.getElementById("boardIdHidden").value;
+
+            // 그냥 목록 다시 불러서 원래대로 되돌리기
+            loadComments(boardId);
+          }
+        });
+
+        //5. 댓글 삭제
+        // 댓글 삭제
+        document.addEventListener("click", function (e) {
+          if (e.target.classList.contains("btn-delete")) {
+            const commentId = e.target.dataset.id;
+            if (confirm("댓글을 삭제하시겠습니까?")) {
+              fetch(`/api/comments/${commentId}`, {
+                method: "DELETE",
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  if (data.header.rtcd === "S00") {
+                    const boardId =
+                      document.getElementById("boardIdHidden").value;
+                    loadComments(boardId);
+                  }
+                });
+            }
+          }
+        });
+      </script>
+    </body>
+  </html>
 </html>
