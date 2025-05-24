@@ -24,6 +24,7 @@ class CommentDAOImplTest {
   void save() {
     //given
     Comment comment = new Comment();
+    comment.setBoardId(2L);
     comment.setContent("우왕 굳");
     comment.setWriter("이용자1");
 
@@ -40,10 +41,12 @@ class CommentDAOImplTest {
   void findAll() {
     //given
     Comment comment1 = new Comment();
+    comment1.setBoardId(2L);
     comment1.setContent("테스트 내용1");
     comment1.setWriter("테스트 작성자1");
 
     Comment comment2 = new Comment();
+    comment2.setBoardId(2L);
     comment2.setContent("테스트 내용2");
     comment2.setWriter("테스트 작성자2");
 
@@ -51,34 +54,35 @@ class CommentDAOImplTest {
     commentDAO.save(comment2);
 
     //when
-    List<Comment> commentList = commentDAO.findAll();
+    List<Comment> commentList = commentDAO.findAll(2L);
 
     //then
     Assertions.assertThat(commentList).isNotNull();
-    Assertions.assertThat(commentList.size()).isEqualTo(6);
+    Assertions.assertThat(commentList.size()).isEqualTo(3);
   }
 
-  @Test
-  @DisplayName("댓글목록-페이징")
-  void findAllPaging(){
-    //given
-
-    //when
-    List<Comment> list = commentDAO.findAll(1, 10);
-
-    //then
-    log.info("총 댓글 수: {}", list.size());
-    for (Comment comment : list) {
-      log.info("comment = {}", comment);
-    }
-  }
-
-
+//  @Test
+//  @DisplayName("댓글목록-페이징")
+//  void findAllPaging(){
+//    //given
+//
+//    //when
+//    List<Comment> list = commentDAO.findAll(1, 10);
+//
+//    //then
+//    log.info("총 댓글 수: {}", list.size());
+//    for (Comment comment : list) {
+//      log.info("comment = {}", comment);
+//    }
+//  }
+//
+//
   @Test
   @DisplayName("댓글찾기")
   void findById() {
     //given
     Comment comment = new Comment();
+    comment.setBoardId(2L);
     comment.setContent("테스트 내용");
     comment.setWriter("테스트 작성자");
     Long commentsId = commentDAO.save(comment);
@@ -97,8 +101,9 @@ class CommentDAOImplTest {
   void deleteById() {
     //given
     Comment comment = new Comment();
-    comment.setContent("테스트 내용");
-    comment.setWriter("테스트 작성자");
+    comment.setBoardId(2L);
+    comment.setContent("테스트 내용3");
+    comment.setWriter("테스트 작성자3");
     Long commentsId = commentDAO.save(comment);
 
     //when
@@ -114,13 +119,14 @@ class CommentDAOImplTest {
   void updateById() {
     //given
     Comment comment = new Comment();
-    comment.setContent("테스트 내용");
-    comment.setWriter("테스트 작성자");
+    comment.setBoardId(2L);
+    comment.setContent("테스트 내용5");
+    comment.setWriter("테스트 작성자5");
     Long commentsId = commentDAO.save(comment);
 
     Comment updatedComment = new Comment();
-    updatedComment.setContent("테스트 내용_수정");
-    updatedComment.setWriter("테스트 작성자_수정");
+    updatedComment.setContent("테스트 내용5_수정");
+    updatedComment.setWriter("테스트 작성자5_수정");
 
 
     //when
@@ -131,7 +137,7 @@ class CommentDAOImplTest {
     log.info("update 요청: id={}, content={}, writer={}",
         foundComment.get().getCommentsId(), foundComment.get().getContent(), foundComment.get().getWriter());
     Assertions.assertThat(updatedRow).isEqualTo(1);
-    Assertions.assertThat(foundComment.get().getContent()).isEqualTo("테스트 내용_수정");
-    Assertions.assertThat(foundComment.get().getWriter()).isEqualTo("테스트 작성자_수정");
+    Assertions.assertThat(foundComment.get().getContent()).isEqualTo("테스트 내용5_수정");
+    Assertions.assertThat(foundComment.get().getWriter()).isEqualTo("테스트 작성자5_수정");
   }
 }

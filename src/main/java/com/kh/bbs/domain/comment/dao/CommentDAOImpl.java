@@ -34,6 +34,7 @@ public class CommentDAOImpl implements CommentDAO {
     return(rs, rowNum)-> {
       Comment comment = new Comment();
       comment.setCommentsId(rs.getLong("comments_id"));
+      comment.setBoardId((rs.getLong("board_id")));
       comment.setContent(rs.getString("content"));
       comment.setWriter(rs.getString("writer"));
       return comment;
@@ -49,8 +50,8 @@ public class CommentDAOImpl implements CommentDAO {
   @Override
   public Long save(Comment comment) {
     StringBuffer sql = new StringBuffer();
-    sql.append("INSERT INTO comments(comments_id, content, writer) ");
-    sql.append("VALUES(comments_comments_id_pk.nextval, :content, :writer) ");
+    sql.append("INSERT INTO comments(comments_id, board_id, content, writer) ");
+    sql.append("VALUES(comments_comments_id_pk.nextval, :boardId, :content, :writer) ");
     //':변수명' = 객체.get필드명(db 컬럼명에 해당하는)
 
     SqlParameterSource param=  new BeanPropertySqlParameterSource(comment);
@@ -66,45 +67,46 @@ public class CommentDAOImpl implements CommentDAO {
    * @return 댓글목록
    */
   @Override
-  public List<Comment> findAll() {
+  public List<Comment> findAll(Long boardId) {
     //sql
     StringBuffer sql = new StringBuffer();
-    sql.append("SELECT comments_id, content, writer, created_at, updated_at ");
-    sql.append("FROM comments ");
+    sql.append("  SELECT comments_id, content, writer, created_at, updated_at ");
+    sql.append("    FROM comments ");
+    sql.append("   WHERE board_id = :boardId ");
     sql.append("ORDER BY COMMENTS_ID desc ");
 
-    List<Comment> list = template.query(sql.toString(), BeanPropertyRowMapper.newInstance(Comment.class));
+    SqlParameterSource param = new MapSqlParameterSource().addValue("boardId", boardId);
 
-    return list;
+    return template.query(sql.toString(), param, BeanPropertyRowMapper.newInstance(Comment.class));
   }
 
 
-  /**
-   * 댓글목록 - 페이징
-   * @param pageNo
-   * @param numOfRows
-   * @return
-   */
-  @Override
-  public List<Comment> findAll(int pageNo, int numOfRows) {
-    //sql
-    StringBuffer sql = new StringBuffer();
-    sql.append("SELECT comments_id,content,writer ");
-    sql.append("FROM COMMENTS ");
-    sql.append("ORDER BY comments_id asc ");
-    sql.append("OFFSET (:pageNo -1) * :numOfRows ROWS ");
-    sql.append("FETCH NEXT :numOfRows ROWS only ");
-
-    Map<String, Integer> map = Map.of("pageNo", pageNo, "numOfRows", numOfRows);
-    List<Comment> list = template.query(sql.toString(), map, doRowMapper());
-
-    return list;
-  }
-
-  @Override
-  public int getTotalCount() {
-    return 0;
-  }
+//  /**
+//   * 댓글목록 - 페이징
+//   * @param pageNo
+//   * @param numOfRows
+//   * @return
+//   */
+//  @Override
+//  public List<Comment> findAll(int pageNo, int numOfRows) {
+//    //sql
+//    StringBuffer sql = new StringBuffer();
+//    sql.append("SELECT comments_id,content,writer ");
+//    sql.append("FROM COMMENTS ");
+//    sql.append("ORDER BY comments_id asc ");
+//    sql.append("OFFSET (:pageNo -1) * :numOfRows ROWS ");
+//    sql.append("FETCH NEXT :numOfRows ROWS only ");
+//
+//    Map<String, Integer> map = Map.of("pageNo", pageNo, "numOfRows", numOfRows);
+//    List<Comment> list = template.query(sql.toString(), map, doRowMapper());
+//
+//    return list;
+//  }
+//
+//  @Override
+//  public int getTotalCount() {
+//    return 0;
+//  }
 
   /**
    * 댓글 삭제
@@ -157,7 +159,7 @@ public class CommentDAOImpl implements CommentDAO {
   @Override
   public Optional<Comment> findById(Long id) {
     StringBuffer sql = new StringBuffer();
-    sql.append("SELECT COMMENTs_id, content, writer, created_at, updated_at ");
+    sql.append("SELECT COMMENTs_id, board_id, content, writer, created_at, updated_at ");
     sql.append("FROM comments ");
     sql.append("WHERE comments_id = :commentsId ");
 

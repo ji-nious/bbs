@@ -6,10 +6,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/css/detailForm.css}" rel="stylesheet">
+    <!-- <link href="/static/css/detailForm.css" rel="stylesheet"> -->
     <title>게시글 상세</title>
 </head>
 
 <body>
+    <!-- UpperMost-->
+    <div class="uppermost">
+        <div class="member">
+            <button class="btn member_login">log in</button>
+            <button class="btn member_join">join</button>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="header"></header>
 
@@ -51,9 +60,31 @@
                     </div>
                 </form>
             </div>
-            <div class = "reply">
-                댓글창
-            </div>
+<!--            <div class = "reply">-->
+<!--                <div class="reply_main">-->
+<!--                    <form id="commentForm" class="form_reply">-->
+<!--                        <input type="hidden" id="boardIdHidden" th:value="${detailForm.boardId}">-->
+<!--                        <div class="form_group form_writer">-->
+<!--                            <input id="writer" class="input-writer" type="text" name="writer" placeholder="작성자" th:field="*{writer}" required>-->
+<!--                        </div>-->
+<!--                        <div class="reply_cnt_btn">-->
+<!--                        <div class="form_group form_content_reply">-->
+<!--                            <textarea id = "content" class="input_reply" name="content" placeholder="바른말 고운말" th:field="*{content}" required></textarea>-->
+<!--                        </div>-->
+
+<!--                        <div class="button-group_reply">-->
+<!--                        <button id="btnUpdate_reply" type="submit" class="btn_reply submit_reply">등록</button>-->
+<!--                        <button id="btnCancel_reply" type="button" class="btn_reply cancel_reply">취소</button>-->
+
+<!--                        </div>-->
+<!--                        </div>-->
+<!--                        <span id="error_reply"></span>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--                <div class="reply_list">목록-->
+<!--                </div>-->
+
+<!--            </div>-->
         </div>
     
     </main>
@@ -120,6 +151,31 @@
             location.href = '/boards'  //get http://localhost:9090/boards
         }, false)
 
+
+<!--        //댓글기능-생성-->
+<!--        document.getElementById('commentForm').addEventListener('submit', function(e) {-->
+<!--            e.preventDefault(); //새로고침 막기-->
+
+<!--            const boardId = document.getElementById('boardId').value;-->
+<!--            const writer = document.getElementById('writer').value;-->
+<!--            const content = document.getElementById('content').value;-->
+
+<!--            //ApiController에게 요청-->
+<!--            fetch('/api/comments', {-->
+<!--               method: 'POST',-->
+<!--               headers: { 'Content-Type': 'application/json'},-->
+<!--               body: JSON.stringify({ boardId, writer, content })-->
+<!--            })-->
+<!--            .then(res => res.json())-->
+<!--            .then(data => {-->
+<!--                if (data.code === 's-00') {-->
+<!--                    alert('댓글 등록 완료!');-->
+<!--                    loadComments(boardId); //댓글 목록 갱신-->
+<!--                } else {-->
+<!--                    document.getElementById('error_reply').textContent = 등록 실패!';-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
 
 
     </script>

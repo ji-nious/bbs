@@ -10,13 +10,13 @@ public interface CommentDAO {
   Long save(Comment comment);
 
   //댓글 목록
-  List<Comment> findAll();
+  List<Comment> findAll(Long boardId);
 
-  //댓글 목록 - 페이징
-  List<Comment> findAll(int pageNo, int numOfRows);
-
-  //댓글 총 건수
-  int getTotalCount();
+//  //댓글 목록 - 페이징
+//  List<Comment> findAll(int pageNo, int numOfRows);
+//
+//  //댓글 총 건수
+//  int getTotalCount();
 
   //댓글 삭제
   int deleteById(Long id);
@@ -24,7 +24,7 @@ public interface CommentDAO {
   //댓글 수정
   int updateById(Long Id, Comment comment);
 
-  //댓글 찾기
+  //댓글 상세
   Optional<Comment> findById(Long id);
 
 

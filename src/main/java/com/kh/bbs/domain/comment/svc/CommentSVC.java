@@ -8,11 +8,17 @@ import java.util.Optional;
 public interface CommentSVC {
   Long save(Comment comment);
 
-  List<Comment> findAll();
+  List<Comment> findAll(Long boardId);
+
+//  List<Comment> findAll(int pageNo, int numOfRows);
+//
+//  int getTotalCount();
 
   Optional<Comment> findById(Long id);
 
   int deleteById(Long id);
 
   int updateById(Long id, Comment comment);
+
+
 }

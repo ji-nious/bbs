@@ -1,6 +1,39 @@
 /* * {outline: 1px solid red;} */
 
+.uppermost{
+display: flex;
+flex-direction: column;
+justify-content: end;
+align-items: end;
 
+    background-color: #6F82C0;
+    height : 40px;
+}
+
+.member {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    margin-right: 15px;
+    width : 150px;
+    height: 30px;
+}
+
+.btn {
+    width: 55px;
+    height: 23px;
+    border-radius: 5px;
+    outline : none;
+    border : none;
+    
+    background-color: #F3F3F9;
+    color : #4E5879;
+    font-weight: bold;
+}
+
+.member_login {
+    margin-right: 5px;
+}
 
 body {
     background-color: #FFFFFF;

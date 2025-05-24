@@ -5,14 +5,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link th:href="@{/css/all.css}" rel="stylesheet">
-    <!-- <link href="/static/all.css" rel="stylesheet"> -->
+     <link th:href="@{/css/all.css}" rel="stylesheet">
+<!--    <link href="/static/css/all.css" rel="stylesheet">-->
     <title>게시글목록</title>
 </head>
 
 <body>
+    <!-- UpperMost-->
+    <div class="uppermost">
+        <div class="member">
+            <button class="btn member_login">log in</button>
+            <button class="btn member_join">join</button>
+        </div>
+    </div>
     <!-- Header -->
-    <header class="header"></header>
+    <header class="header">
+
+    </header>
 
     <!-- Main Content -->
     <main class="main">
@@ -43,7 +52,7 @@
                     </table>
                 </form>
                 <div class="button-write">
-                    <button><a th:href="@{/boards/add}">글쓰기</a></button>
+                    <button class="btn_write"><a class="btn-write" th:href="@{/boards/add}">글쓰기</a></button>
                 </div>
             </div>
         </div>

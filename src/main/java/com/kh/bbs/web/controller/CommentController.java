@@ -22,7 +22,7 @@ import java.util.Optional;
 @RequestMapping("/api/comments")
 @RestController  //리턴 객체를 자동으로 JSON으로 변환시켜줌 [@Controller + @Responsebody(내부적으로 JSON 변환 수행)]
 @RequiredArgsConstructor
-public class ApiController {
+public class CommentController {
 
   private final CommentSVC commentSVC;
 
@@ -111,16 +111,50 @@ public class ApiController {
 
   //댓글 목록     //GET     /comments => GET http://localhost:9090/api/comments
   @GetMapping
-  public ResponseEntity<ApiResponse<List<Comment>>> findAll() {
+  public ResponseEntity<ApiResponse<List<Comment>>> findAll(
+      @RequestParam("boardId") Long boardId
+  ) {
 
-    List<Comment> list = commentSVC.findAll();
+    List<Comment> list = commentSVC.findAll(boardId);
     ApiResponse<List<Comment>> listApiResponse = ApiResponse.of(ApiResponseCode.SUCCESS, list);
 
     return ResponseEntity.ok(listApiResponse);
   }
 
 
-  //댓글 목록-페이징
+//  //댓글 목록-페이징     //GET     /comments => GET http://localhost:9090/api/comments/paging
+//  @GetMapping("/paging")
+//  public ResponseEntity<ApiResponse<List<Comment>>> findAll(
+//      //@RequestParam : HTTP 요청의 쿼리 파라미터값을 메서드의 매개변수로 바인딩
+//      @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+//      @RequestParam(value = "numOfRows", defaultValue = "10") Integer numOfRows
+//  ) {
+//    log.info("pageNo={}, numOfRows={}", pageNo, numOfRows);
+//
+//    //상품목록 가져오기
+//    List<Comment> list = commentSVC.findAll(pageNo, numOfRows);
+//
+//    //상품 총 건수 가져오기
+//    int totalCount = commentSVC.getTotalCount();
+//
+//    //REST API 표준 응답 만들기
+//    ApiResponse<List<Comment>> listApiResponse = ApiResponse.of(ApiResponseCode.SUCCESS,
+//        list,
+//        new ApiResponse.Paging(pageNo, numOfRows, totalCount)
+//    );
+//    return ResponseEntity.ok(listApiResponse);
+//  }
+//
+//  //전체 건수 가져오기      //GET     /comments/totCnt => GET http://localhost:9090/api/comments/totCnt
+//  @GetMapping("/totCnt")
+//  public ResponseEntity<ApiResponse<Integer>> totalCount() {
+//
+//    int totalCount = commentSVC.getTotalCount();
+//    ApiResponse<Integer> commentApiResponse = ApiResponse.of(ApiResponseCode.SUCCESS, totalCount);
+//
+//    return ResponseEntity.ok(commentApiResponse); //상태코드 200, 응답메세지 Body:commentApiResponse객체가 json포맷 문자열로 변환됨
+//  }
+
 
 
 

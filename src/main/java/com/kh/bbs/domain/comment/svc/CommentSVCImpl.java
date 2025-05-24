@@ -24,9 +24,19 @@ public class CommentSVCImpl implements CommentSVC{
   }
 
   @Override
-  public List<Comment> findAll() {
-    return commentDAO.findAll();
+  public List<Comment> findAll(Long boardId) {
+    return commentDAO.findAll(boardId);
   }
+
+//  @Override
+//  public List<Comment> findAll(int pageNo, int numOfRows) {
+//    return commentDAO.findAll();
+//  }
+//
+//  @Override
+//  public int getTotalCount() {
+//    return commentDAO.getTotalCount();
+//  }
 
   @Override
   public Optional<Comment> findById(Long id) {
@@ -42,4 +52,6 @@ public class CommentSVCImpl implements CommentSVC{
   public int updateById(Long id, Comment comment) {
     return commentDAO.updateById(id, comment);
   }
+
+
 }

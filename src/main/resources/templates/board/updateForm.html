@@ -4,12 +4,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link th:href="@{/css/updateForm.css}" rel="stylesheet">
-  <!-- <link href="/static/css/updateForm.css" rel="stylesheet"> -->
+   <link th:href="@{/css/updateForm.css}" rel="stylesheet">
+<!--  <link href="/static/css/updateForm.css" rel="stylesheet">-->
   <title>게시글수정</title>
 </head>
 
 <body>
+  <!-- UpperMost-->
+  <div class="uppermost">
+      <div class="member">
+          <button class="btn member_login">log in</button>
+          <button class="btn member_join">join</button>
+      </div>
+  </div>
+
   <!-- Header -->
   <header class="header"></header>
 
@@ -51,8 +59,8 @@
             <button class="bnt bnt-delete" type="button" id="btnCancel">취소</button>
             <button class="bnt bnt-list" type="button" id="btnFindAll">목록</button>
           </div>
-        </form>
       </div>
+      </form>
       <div class="reply">
         댓글창
       </div>
