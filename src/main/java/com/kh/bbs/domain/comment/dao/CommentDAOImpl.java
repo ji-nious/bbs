@@ -81,32 +81,37 @@ public class CommentDAOImpl implements CommentDAO {
   }
 
 
-//  /**
-//   * 댓글목록 - 페이징
-//   * @param pageNo
-//   * @param numOfRows
-//   * @return
-//   */
-//  @Override
-//  public List<Comment> findAll(int pageNo, int numOfRows) {
-//    //sql
-//    StringBuffer sql = new StringBuffer();
-//    sql.append("SELECT comments_id,content,writer ");
-//    sql.append("FROM COMMENTS ");
-//    sql.append("ORDER BY comments_id asc ");
-//    sql.append("OFFSET (:pageNo -1) * :numOfRows ROWS ");
-//    sql.append("FETCH NEXT :numOfRows ROWS only ");
-//
-//    Map<String, Integer> map = Map.of("pageNo", pageNo, "numOfRows", numOfRows);
-//    List<Comment> list = template.query(sql.toString(), map, doRowMapper());
-//
-//    return list;
-//  }
-//
-//  @Override
-//  public int getTotalCount() {
-//    return 0;
-//  }
+  /**
+   * 댓글목록 - 페이징
+   * @param pageNo
+   * @param numOfRows
+   * @return
+   */
+  @Override
+  public List<Comment> findAll(Long boardId, int pageNo, int numOfRows) {
+    //sql
+    StringBuffer sql = new StringBuffer();
+    sql.append("SELECT * FROM ( ");
+    sql.append("  SELECT c.*, ROWNUM rn FROM ( ");
+    sql.append("    SELECT * FROM comments ");
+    sql.append("     WHERE board_id = :boardId ");
+    sql.append("     ORDER BY comments_id DESC ");
+    sql.append("  ) c ");
+    sql.append("  WHERE ROWNUM <= (:pageNo * :numOfRows) ");
+    sql.append(") ");
+    sql.append("WHERE rn > ((:pageNo - 1) * :numOfRows) ");
+
+    Map<String, Object> map = Map.of("boardId", boardId, "pageNo", pageNo, "numOfRows", numOfRows);
+    List<Comment> list = template.query(sql.toString(), map, doRowMapper());
+
+    return list;
+  }
+
+  @Override
+  public int getTotalCount(Long boardId) {
+
+    return 0;
+  }
 
   /**
    * 댓글 삭제

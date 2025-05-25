@@ -12,11 +12,11 @@ public interface CommentDAO {
   //댓글 목록
   List<Comment> findAll(Long boardId);
 
-//  //댓글 목록 - 페이징
-//  List<Comment> findAll(int pageNo, int numOfRows);
-//
-//  //댓글 총 건수
-//  int getTotalCount();
+  //댓글 목록 - 페이징 (특정 게시글 기준)
+  List<Comment> findAll(Long boardId, int pageNo, int numOfRows);
+
+  //댓글 총 건수 (특정 게시글 기준)
+  int getTotalCount(Long boardId);
 
   //댓글 삭제
   int deleteById(Long id);
