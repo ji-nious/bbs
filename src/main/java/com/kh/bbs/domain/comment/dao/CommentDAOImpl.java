@@ -108,11 +108,13 @@ public class CommentDAOImpl implements CommentDAO {
   }
 
   @Override
-  public int getTotalCount(Long boardId) {
+  public int getTotalCount(Long boardId) { //board_id가 없는 경우 0반환. -> Optional 처리 불필요
+    String sql = "SELECT COUNT(*) FROM comments WHERE board_id = :boardId ";
 
-    return 0;
+    Map<String, Object> param = Map.of("boardId", boardId);
+
+    return template.queryForObject(sql, param, Integer.class);
   }
-
   /**
    * 댓글 삭제
    * @param id

@@ -10,9 +10,9 @@ public interface CommentSVC {
 
   List<Comment> findAll(Long boardId);
 
-//  List<Comment> findAll(int pageNo, int numOfRows);
-//
-//  int getTotalCount();
+  List<Comment> findAll(Long boardId, int pageNo, int numOfRows);
+
+  int getTotalCount(Long boardId);
 
   Optional<Comment> findById(Long id);
 

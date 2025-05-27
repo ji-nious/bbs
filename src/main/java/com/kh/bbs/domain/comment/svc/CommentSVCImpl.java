@@ -28,15 +28,16 @@ public class CommentSVCImpl implements CommentSVC{
     return commentDAO.findAll(boardId);
   }
 
-//  @Override
-//  public List<Comment> findAll(int pageNo, int numOfRows) {
-//    return commentDAO.findAll();
-//  }
-//
-//  @Override
-//  public int getTotalCount() {
-//    return commentDAO.getTotalCount();
-//  }
+  @Override
+  public List<Comment> findAll(Long boardId, int pageNo, int numOfRows) {
+    return commentDAO.findAll(boardId, pageNo, numOfRows);
+  }
+
+  @Override
+  public int getTotalCount(Long boardId) {
+    return commentDAO.getTotalCount(boardId);
+  }
+
 
   @Override
   public Optional<Comment> findById(Long id) {

@@ -122,38 +122,41 @@ public class CommentController {
   }
 
 
-//  //댓글 목록-페이징     //GET     /comments => GET http://localhost:9090/api/comments/paging
-//  @GetMapping("/paging")
-//  public ResponseEntity<ApiResponse<List<Comment>>> findAll(
-//      //@RequestParam : HTTP 요청의 쿼리 파라미터값을 메서드의 매개변수로 바인딩
-//      @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-//      @RequestParam(value = "numOfRows", defaultValue = "10") Integer numOfRows
-//  ) {
-//    log.info("pageNo={}, numOfRows={}", pageNo, numOfRows);
-//
-//    //상품목록 가져오기
-//    List<Comment> list = commentSVC.findAll(pageNo, numOfRows);
-//
-//    //상품 총 건수 가져오기
-//    int totalCount = commentSVC.getTotalCount();
-//
-//    //REST API 표준 응답 만들기
-//    ApiResponse<List<Comment>> listApiResponse = ApiResponse.of(ApiResponseCode.SUCCESS,
-//        list,
-//        new ApiResponse.Paging(pageNo, numOfRows, totalCount)
-//    );
-//    return ResponseEntity.ok(listApiResponse);
-//  }
-//
-//  //전체 건수 가져오기      //GET     /comments/totCnt => GET http://localhost:9090/api/comments/totCnt
-//  @GetMapping("/totCnt")
-//  public ResponseEntity<ApiResponse<Integer>> totalCount() {
-//
-//    int totalCount = commentSVC.getTotalCount();
-//    ApiResponse<Integer> commentApiResponse = ApiResponse.of(ApiResponseCode.SUCCESS, totalCount);
-//
-//    return ResponseEntity.ok(commentApiResponse); //상태코드 200, 응답메세지 Body:commentApiResponse객체가 json포맷 문자열로 변환됨
-//  }
+  //댓글 목록-페이징     //GET     /comments => GET http://localhost:9090/api/comments/paging
+  @GetMapping("/paging")
+  public ResponseEntity<ApiResponse<List<Comment>>> findAll(
+      //@RequestParam : HTTP 요청의 쿼리 파라미터값을 메서드의 매개변수로 바인딩
+      @RequestParam("boardId") Long boardId,
+      @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+      @RequestParam(value = "numOfRows", defaultValue = "10") Integer numOfRows
+  ) {
+    log.info("boardId= {}, pageNo={}, numOfRows={}", boardId, pageNo, numOfRows);
+
+    //상품목록 가져오기
+    List<Comment> list = commentSVC.findAll(boardId, pageNo, numOfRows);
+
+    //상품 총 건수 가져오기
+    int totalCount = commentSVC.getTotalCount(boardId);
+
+    //REST API 표준 응답 만들기
+    ApiResponse<List<Comment>> listApiResponse = ApiResponse.of(ApiResponseCode.SUCCESS,
+        list,
+        new ApiResponse.Paging(pageNo, numOfRows, totalCount)
+    );
+    return ResponseEntity.ok(listApiResponse);
+  }
+
+  //전체 건수 가져오기      //GET     /comments/totCnt => GET http://localhost:9090/api/comments/totCnt
+  @GetMapping("/totCnt")
+  public ResponseEntity<ApiResponse<Integer>> totalCount(
+      @RequestParam("boardId") Long boardId
+  ) {
+    int totalCount = commentSVC.getTotalCount(boardId);
+    ApiResponse<Integer> commentApiResponse = ApiResponse.of(ApiResponseCode.SUCCESS, totalCount);
+
+    return ResponseEntity.ok(commentApiResponse); //상태코드 200, 응답메세지 Body:commentApiResponse객체가 json포맷 문자열로 변환됨
+  }
+
 
 
 
