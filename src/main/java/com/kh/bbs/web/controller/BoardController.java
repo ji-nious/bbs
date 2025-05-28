@@ -134,7 +134,7 @@ public class BoardController {
     log.info("updateForm={}",updateForm);
 
     model.addAttribute("updateForm",updateForm);
-    return "board/updateForm_new";
+    return "board/updateForm";
   }
 
   //상품수정처리

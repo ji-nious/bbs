@@ -67,7 +67,7 @@ public class MemberController {
     //클라이언트에서 받은 데이터 Member member객체에 옮겨 받은 걸 실제 DB에 넣기
     Member joinedMember = memberSVC.join(member);
 
-    return "redirect:/login";   //302 GET http://localhost:9090/login
+    return "redirect:/";   //302 GET http://localhost:9090/login
   }
 
 

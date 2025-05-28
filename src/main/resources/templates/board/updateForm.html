@@ -1,144 +1,170 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link th:href="@{/css/updateForm.css}" rel="stylesheet">
-<!--  <link href="/static/css/updateForm.css" rel="stylesheet">-->
-  <title>게시글수정</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link th:href="@{/css/common.css}" rel="stylesheet" />
+   <link th:href="@{/css/updateForm.css}" rel="stylesheet" />
+<!--  <link rel="stylesheet" href="/static/css/common.css" />-->
+<!--  <link rel="stylesheet" href="/static/css/update.css" />-->
+  <title>커뮤니티 게시판</title>
 </head>
 
 <body>
-  <!-- UpperMost-->
-  <div class="uppermost">
-      <div class="member">
-          <button class="btn member_login">log in</button>
-          <button class="btn member_join">join</button>
-      </div>
-  </div>
+<div class="wrap">
+  <div class="inner">
 
-  <!-- Header -->
-  <header class="header"></header>
-
-  <!-- Main Content -->
-  <main class="main">
-    <div class="main-content">
-      <h2 class="title">자유게시판</h2>
-      <div class="notice">공지</div>
-      <form class="form" id="frm" method="post" th:object="${updateForm}">
-      <div class="content-title">
-        <input id="title" th:field="*{title}" class="content-title-input" type="text">
-        <span id="errTitle"></span>
+    <!-- Header -->
+    <header class="header">
+      <div class="header_wrap">
+        <div class="header_box logo"><a th:href="@{/}">JINIOUS</a></div>
+        <div class="header_box header-icons">
+          <span>로그인</span>
+          <span><a href="http://www.naver.com" th:href="@{/members/join}">회원가입</a></span>
+        </div>
       </div>
-      <div class="content">
-          <div class="form-info">
-            <div class="form-info-item info-boardId">
-              <div class="items-label">순번</div>
-              <input id="boardId" th:field="*{boardId}" class="items" type="text" readonly>
+    </header>
+
+    <!-- Category Menu -->
+    <nav class="category-menu">
+      <ul>
+        <li>전체메뉴</li>
+        <li>SHOP</li>
+        <li><a th:href="@{/boards}">커뮤니티</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main -->
+    <section class="main">
+
+      <main class="main-content">
+        <h2>커뮤니티 <small>게시글 수정</small></h2>
+        <div class="board">
+          <!-- 게시글 상세 -->
+          <form class="form" id="frm" method="post" th:object="${updateForm}">
+          <div class="post-container" th:object="${updateForm}">
+            <div class="post-info">
+              <input type="hidden" id="boardId" th:field="*{boardId}">
+              <input type="text" class="title" th:field="*{title}">
+              <span id="errTitle"></span>
+              <input class="writer" th:value="*{writer}" readonly>
+              <div class="date-group">
+                <input type="text" class="date cdate"
+                       th:value="${#temporals.format(updateForm.createdAt, 'yyyy-MM-dd HH:mm:ss')}" readonly>
+                <input type="text" class="date udate"
+                       th:value="${#temporals.format(updateForm.updatedAt, 'yyyy-MM-dd HH:mm:ss')}" readonly>
+              </div>
             </div>
-            <div class="form-info-item info-writer">
-              <div class="items-label">작성자</div>
-              <input id="writer" th:field="*{writer}" class="items" type="text" readonly>
-            </div>
-            <div class="form-info-item info-created">
-              <div class="items-label">작성일</div>
-              <input th:field="*{createdAt}" value="생성일 없음" class="items" type="text" id="createdAt">
-            </div>
-            <div class="form-info-item info-updated">
-              <div class="items-label">수정일</div>
-              <input th:field="*{updatedAt}" value="수정일 없음" class="items" type="text" id="updatedAt">
-            </div>
-          </div>
-          <div class="form-body">
-            <textarea id="content" th:field="*{content}" class="form-body-input"></textarea>
+            <hr>
+            <textarea class="content" th:field="*{content}"></textarea>
             <span id="errContent"></span>
           </div>
-          <div class="button-group">
-            <button class="bnt bnt-update" type="button" id="btnUpdate">저장</button>
-            <button class="bnt bnt-delete" type="button" id="btnCancel">취소</button>
-            <button class="bnt bnt-list" type="button" id="btnFindAll">목록</button>
+
+          <!-- 버튼그룹 -->
+          <div class="write">
+            <button class="btn bnt-update" type="button" id="btnUpdate">저장</button>
+            <button class="btn bnt-delete" type="button" id="btnCancel">취소</button>
+            <button class="btn bnt-list" type="button" id="btnFindAll">목록</button>
           </div>
-      </div>
-      </form>
-      <div class="reply">
-        댓글창
+          </form>
+        </div>
+      </main>
+  </div>
+</div>
+
+
+</section>
+
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-info">
+      <div class="footer-box">
+        <h4>자기소개</h4>
+        <p>JINIOUS</p>
+        <p>대표: 허진희 | 연락처: 010-xxxx-xxxx</p>
       </div>
     </div>
-  </main>
-
-  <!-- Footer -->
-  <footer class="footer"></footer>
-
-  <script type="module">
-    //저장
-    import { getBytesSize }  from '/js/common.js';
-
-    //저장
-    const frm = document.getElementById('frm')
-    const title = document.getElementById('title');
-    const content = document.getElementById('content');
-    const errTitle = document.getElementById('errTitle');
-    const errContent = document.getElementById('errContent');
-    const btnUpdate = document.getElementById('btnUpdate');
-
-    btnUpdate.addEventListener('click', e => {
-      e.preventDefault(); //submit 기본 동작(제출, 새로고침 등) 방지. 제출하기 전에 유효성 검사해야하니까.
-
-      //유효성 체크
-      // console.log('등록버튼 클릭됨!')
-
-      //제목
-      if (title.value.length == 0) {
-        console.log('제목을 입력하세요.')
-        errTitle.textContent = '제목을 입력하세요'
-        title.focus();
-        return;
-      } else if (getBytesSize(title.value) > 300) {
-        errTitle.textContent = '제목은 100자를 초과할 수 없습니다.'
-        title.focus();
-        return
-      } else {
-        errTitle.textContent = '';
-      }
-
-      if (content.value.length == 0) {
-        console.log('본문을 입력하세요.')
-        errContent.textContent = '내용을 입력하세요'
-        content.focus();
-        return;
-      } else if (getBytesSize(content.value) > 30000) {
-        errContent.textContent = '내용은 10000자를 초과할 수 없습니다.'
-        content.focus();
-        return
-      } else {
-        errContent.textContent = '';
-      }
-
-      console.log("Content Value: ", content.value);
-      frm.submit();
-
-    }, false);
+    <p class="copyright">© 2025 MO:SI. All rights reserved.</p>
+  </div>
+</footer>
+</div>
+</div>
 
 
-    //취소
-    const $btnCancel = document.getElementById('btnCancel');
-    $btnCancel.addEventListener('click', e => {
-      const $boardId = document.getElementById('boardId');
-      const boardId = $boardId.value;
+    <script type="module">
+        //저장
+        import { getBytesSize } from '/js/common.js';
 
-      console.log(boardId)
+        //저장
+        const frm = document.getElementById('frm')
+        const title = document.getElementById('title');
+        const content = document.getElementById('content');
+        const errTitle = document.getElementById('errTitle');
+        const errContent = document.getElementById('errContent');
+        const btnUpdate = document.getElementById('btnUpdate');
 
-      location.href = `/boards/${boardId}`  //get http://localhost:9090/boards/${boardId}
-    }, false);
+        btnUpdate.addEventListener('click', e => {
+            e.preventDefault(); //submit 기본 동작(제출, 새로고침 등) 방지. 제출하기 전에 유효성 검사해야하니까.
 
-    //목록
-    const $btnFindAll = document.getElementById('btnFindAll');
-    $btnFindAll.addEventListener('click', e => {
-      location.href = '/boards'  //get http://localhost:9090/boards
-    }, false);
+            //유효성 체크
+            // console.log('등록버튼 클릭됨!')
 
-  </script>
+            //제목
+            if (title.value.length == 0) {
+                console.log('제목을 입력하세요.')
+                errTitle.textContent = '제목을 입력하세요'
+                title.focus();
+                return;
+            } else if (getBytesSize(title.value) > 300) {
+                errTitle.textContent = '제목은 100자를 초과할 수 없습니다.'
+                title.focus();
+                return
+            } else {
+                errTitle.textContent = '';
+            }
+
+            if (content.value.length == 0) {
+                console.log('본문을 입력하세요.')
+                errContent.textContent = '내용을 입력하세요'
+                content.focus();
+                return;
+            } else if (getBytesSize(content.value) > 30000) {
+                errContent.textContent = '내용은 10000자를 초과할 수 없습니다.'
+                content.focus();
+                return
+            } else {
+                errContent.textContent = '';
+            }
+
+            console.log("Content Value: ", content.value);
+            frm.submit();
+
+        }, false);
+
+
+        //취소
+        const $btnCancel = document.getElementById('btnCancel');
+        $btnCancel.addEventListener('click', e => {
+            const $boardId = document.getElementById('boardId');
+            const boardId = $boardId.value;
+
+            console.log(boardId)
+
+            location.href = `/boards/${boardId}`  //get http://localhost:9090/boards/${boardId}
+        }, false);
+
+        //목록
+        const $btnFindAll = document.getElementById('btnFindAll');
+        $btnFindAll.addEventListener('click', e => {
+            location.href = '/boards'  //get http://localhost:9090/boards
+        }, false);
+
+    </script>
+
 </body>
 
 </html>

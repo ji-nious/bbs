@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
      <link th:href="@{/css/common.css}" rel="stylesheet" />
-     <link th:href="@{/css/join.css}" rel="stylesheet" />
+     <link th:href="@{/css/login.css}" rel="stylesheet" />
 <!--    <link rel="stylesheet" href="/static/css/common.css" />-->
-<!--    <link rel="stylesheet" href="/static/css/join.css" />-->
+<!--    <link rel="stylesheet" href="/static/css/login.css" />-->
 
-    <title>회원가입</title>
+    <title>로그인</title>
   </head>
 
   <body>
@@ -24,12 +24,15 @@
           </div>
         </header>
 
-
         <!-- Main -->
-        <section class="main-join">
-          <h1> 회 원 가 입 </h1>
+        <section class="main-login">
+          <h1>로 그 인</h1>
           <div class="banner-text">
-            <form th:action="@{/members/join}" th:method="post" th:object="${joinForm}">
+            <form
+
+              th:method="post"
+              th:object="${loginForm}"
+            >
               <div th:if="${#fields.hasGlobalErrors()}">
                 <p
                   class="global-err"
@@ -38,7 +41,7 @@
                 ></p>
               </div>
 
-              <div class="join-info">
+              <div class="login-info">
                 <label th:for="email">이메일</label
                 ><input type="text" th:field="*{email}" />
                 <div
@@ -48,7 +51,7 @@
                   <span th:text="${err}"></span>
                 </div>
               </div>
-              <div class="join-info">
+              <div class="login-info">
                 <label th:for="passwd">비밀번호</label
                 ><input type="password" th:field="*{passwd}" />
                 <div
@@ -58,24 +61,8 @@
                   <span th:text="${err}"></span>
                 </div>
               </div>
-              <div class="join-info">
-                <label th:for="passwdChk">비밀번호확인</label
-                ><input type="password" th:field="*{passwdChk}" />
-                <div
-                  class="field-err"
-                  th:each="err : ${#fields.errors('passwdChk')}"
-                >
-                  <span th:text="${err}"></span>
-                </div>
-              </div>
-              <div class="join-info">
-                <label th:for="tel">닉네임</label
-                ><input type="text" th:field="*{nickname}" />
-              </div>
-
               <div class="btn-group">
-                <button class="btn ">가입</button>
-                <button class="btn " type="reset">취소</button>
+                <button class="btn">로그인</button>
               </div>
             </form>
           </div>

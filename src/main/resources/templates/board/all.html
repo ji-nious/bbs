@@ -22,7 +22,7 @@
         <div class="header_box logo"><a th:href="@{/}">JINIOUS</a></div>
         <div class="header_box header-icons">
           <span>로그인</span>
-          <span>회원가입</span>
+          <span><a href="http://www.naver.com" th:href="@{/members/join}">회원가입</a></span>
         </div>
       </div>
     </header>
@@ -32,7 +32,7 @@
       <ul>
         <li>전체메뉴</li>
         <li>SHOP</li>
-        <li>커뮤니티</li>
+        <li><a th:href="@{/boards}">커뮤니티</a></li>
       </ul>
     </nav>
 
