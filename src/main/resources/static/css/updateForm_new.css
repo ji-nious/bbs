@@ -6,12 +6,19 @@
   padding: 30px;
 }
 
-.post-container hr {
-  margin-top: 15px;
-  height: 1px;
-  background: #b7aab2;
-  border: 0;
+.post-info {
+  display: flex;
+  flex-direction: column;
 }
+
+.post-info input {
+  /* border: 1px solid #b7aab2; */
+  border: none;
+}
+
+
+
+
 
 .title {
   font-size: 22px;
@@ -19,6 +26,9 @@
   color: #2f4858;
   margin-bottom: 10px;
   margin-left: 2px;
+  background-color: #fffaf9;
+  border-radius: 5px;
+
 }
 
 .writer {
@@ -34,17 +44,35 @@
   margin-left: 2px;
 }
 
+.post-container hr {
+  margin-top: 15px;
+  height: 1px;
+  background: #b7aab2;
+  border: none;
+  margin-bottom: 5px;
+}
+
+
+
 .content {
   height: 300px;
+  width: 100%;
   font-size: 16px;
   line-height: 1.7;
   white-space: pre-line;
   color: #2f4858;
   margin-bottom: 40px;
   margin-left: 2px;
+  resize: none;
+  padding: 10px;
+  border: none;
+  background-color: #fffaf9;
+  border-radius: 5px;
 }
 
-
+.content:focus {
+  outline: none;
+}
 
 /* 버튼 그룹 */
 .write {
@@ -61,7 +89,7 @@
   border-radius: 8px;
 }
 
-.comment-input{
+.comment-input {
   border: 1px solid #dcd1d3;
   border-radius: 8px;
   padding: 20px 10px;
@@ -109,7 +137,7 @@
   margin: 0;
 }
 
-.comment-form button:hover{
+.comment-form button:hover {
   background: none;
 }
 

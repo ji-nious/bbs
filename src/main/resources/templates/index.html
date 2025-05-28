@@ -1,13 +1,146 @@
 <!DOCTYPE html>
+<html lang="en">
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>반가워요</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link th:href="@{/css/index.css}" rel="stylesheet" />
+<!--  <link rel="stylesheet" href="/static/css/index.css" />-->
+  <title>JINIOUS</title>
 </head>
 <body>
-<h3>게시판 만들기</h3>
-<a th:href="@{/boards}"> 목록 </a>
+<div class="wrap">
+  <div class="inner">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header_wrap">
+        <div class="header_box logo">JINIOUS</div>
+        <div class="header_box header-icons">
+          <span>로그인</span>
+          <span>회원가입</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Category Menu -->
+    <nav class="category-menu">
+      <ul>
+        <li>전체메뉴</li>
+        <li>SHOP</li>
+        <li><a th:href="@{/boards}"> 커뮤니티 </a></li>
+      </ul>
+    </nav>
+
+    <!-- Main Banner -->
+    <section class="main-banner">
+      <div class="banner-text">이달의 활동</div>
+    </section>
+
+    <!-- 인기상품 -->
+    <section class="popular-tours">
+      <div class="section-title">Jinious 작업실</div>
+      <div class="tour-grid">
+        <div class="tour-box">나의 작품</div>
+        <div class="tour-box">나의 작품</div>
+        <div class="tour-box">나의 작품</div>
+      </div>
+    </section>
+
+
+    <!-- 커뮤니티 -->
+    <section class="community">
+      <div class="section-title">
+        <span>커뮤니티</span>
+        <a href="#" class="more-link">전체보기 &gt;</a>
+      </div>
+      <div class="community-content">
+        <!-- 왼쪽: 커뮤니티 게시글 목록 -->
+        <div class="community-left">
+          <div class="community-post">
+            <div class="post-text">
+              <h4>[당첨자 발표] 최대 500만원, 풀코스로 모십니다!</h4>
+              <p>
+                수많은 사연 중 큰 감동을 준 대망의 주인공! 정말 많은
+                분들께서 모시 이야기를...
+              </p>
+              <div class="meta">조회수 2,074 · 댓글 6</div>
+            </div>
+            <div class="post-thumb">
+              <img src="/images/thumb1.jpg" alt="썸네일1" />
+            </div>
+          </div>
+          <div class="community-post">
+            <div class="post-text">
+              <h4>타임지가 정한 2025 부산 여행 트렌드</h4>
+              <p>
+                요즘은 '누구나 특별한 여행'을 원하죠. 올해의 트렌드를
+                소개합니다...
+              </p>
+              <div class="meta">조회수 1,234 · 댓글 4</div>
+            </div>
+            <div class="post-thumb">
+              <img src="/images/thumb2.jpg" alt="썸네일2" />
+            </div>
+          </div>
+          <div class="community-post">
+            <div class="post-text">
+              <h4>무더운 여름을 피하는 부산 토박이들의 명소</h4>
+              <p>
+                요즘 많이 더우시죠? 부산에서의 뻔한 피서는 가라! 부산 토박이
+                피서지 1순위를 소개합니다.
+              </p>
+              <div class="meta">조회수 13,326 · 댓글 29</div>
+            </div>
+            <div class="post-thumb">
+              <img src="/images/thumb3.jpg" alt="썸네일3" />
+            </div>
+          </div>
+          <div class="community-post">
+            <div class="post-text">
+              <h4>무더운 여름을 피하는 부산 토박이들의 명소</h4>
+              <p>
+                요즘 많이 더우시죠? 부산에서의 뻔한 피서는 가라! 부산 토박이
+                피서지 1순위를 소개합니다.
+              </p>
+              <div class="meta">조회수 13,326 · 댓글 29</div>
+            </div>
+            <div class="post-thumb">
+              <img src="/images/thumb3.jpg" alt="썸네일3" />
+            </div>
+          </div>
+          <div class="community-post">
+            <div class="post-text">
+              <h4>무더운 여름을 피하는 부산 토박이들의 명소</h4>
+              <p>
+                요즘 많이 더우시죠? 부산에서의 뻔한 피서는 가라! 부산 토박이
+                피서지 1순위를 소개합니다.
+              </p>
+              <div class="meta">조회수 13,326 · 댓글 29</div>
+            </div>
+            <div class="post-thumb">
+              <img src="/images/thumb3.jpg" alt="썸네일3" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-info">
+          <div class="footer-box">
+            <h4>자기소개</h4>
+            <p>JINIOUS</p>
+            <p>대표: 허진희 | 연락처: 010-xxxx-xxxx</p>
+          </div>
+        </div>
+        <p class="copyright">© 2025 MO:SI. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+</div>
 </body>
 </html>

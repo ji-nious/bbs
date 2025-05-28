@@ -1,167 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
-  <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link th:href="@{/css/detailForm.css}" rel="stylesheet" />
-      <!-- <link href="/static/css/detailForm.css" rel="stylesheet"> -->
-      <title>게시글 상세</title>
-    </head>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 
-    <body>
-      <!-- UpperMost-->
-      <div class="uppermost">
-        <div class="member">
-          <button class="btn member_login">log in</button>
-          <button class="btn member_join">join</button>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link th:href="@{/css/common.css}" rel="stylesheet" />
+  <link th:href="@{/css/detailForm.css}" rel="stylesheet" />
+  <!-- <link rel="stylesheet" href="/static/css/common.css" /> -->
+  <!-- <link rel="stylesheet" href="/static/css/detail.css" /> -->
+
+  <title>커뮤니티 게시판</title>
+</head>
+
+<body>
+<div class="wrap">
+  <div class="inner">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header_wrap">
+        <div class="header_box logo"><a th:href="@{/}">JINIOUS</a></div>
+        <div class="header_box header-icons">
+          <span>로그인</span>
+          <span>회원가입</span>
         </div>
       </div>
+    </header>
 
-      <!-- Header -->
-      <header class="header"></header>
+    <!-- Category Menu -->
+    <nav class="category-menu">
+      <ul>
+        <li>전체메뉴</li>
+        <li>SHOP</li>
+        <li><a th:href="@{/boards}"> 커뮤니티 </a></li>
+      </ul>
+    </nav>
 
-      <!-- Main Content -->
-      <main class="main">
-        <div class="main-content">
-          <h2 class="title">자유게시판</h2>
-          <div class="notice">공지</div>
-          <div class="content-title">
-            <input
-              th:value="${detailForm.title}"
-              class="content-title-input"
-              type="text"
-            />
+    <!-- Main -->
+    <section class="main">
+
+      <main class="main-content">
+        <h2>커뮤니티 <small>게시판</small></h2>
+        <div class="board">
+          <!-- 게시글 상세 -->
+          <div class="post-container" th:object="${detailForm}">
+            <input type="hidden" id="boardId" th:value="*{boardId}" />
+            <h3 class="title" th:text="*{title}">제목</h3>
+            <div class="writer" th:text="*{writer}">작성자</div>
+            <div class="date-group">
+              <span class="date cdate"
+                    th:text="${#temporals.format(detailForm.createdAt, 'yyyy-MM-dd HH:mm:ss')}">작성일
+              </span>
+              <span class="date udate"
+                    th:text="${#temporals.format(detailForm.updatedAt, 'yyyy-MM-dd HH:mm:ss')}">수정일</span>
+            </div>
+            <hr>
+            <div class="content" th:text="*{content}">
+              내용
+            </div>
           </div>
-          <div class="content">
-            <form class="form" method="" th:object="${detailForm}">
-              <div class="form-info">
-                <div class="form-info-item info-boardId">
-                  <div class="items-label">순번</div>
-                  <input
-                    id="boardId"
-                    th:value="${detailForm.boardId}"
-                    class="items"
-                    type="text"
-                    readonly
-                  />
-                </div>
-                <div class="form-info-item info-writer">
-                  <div class="items-label">작성자</div>
-                  <input
-                    th:value="${detailForm.writer}"
-                    class="items"
-                    type="text"
-                    readonly
-                  />
-                </div>
-                <div class="form-info-item info-created">
-                  <div class="items-label">작성일</div>
-                  <input
-                    th:value="${#temporals.format(detailForm.createdAt, 'yyyy-MM-dd HH:mm:ss')}"
-                    class="items"
-                    type="text"
-                    readonly
-                  />
-                </div>
-                <div class="form-info-item info-updated">
-                  <div class="items-label">수정일</div>
-                  <input
-                    th:value="${#temporals.format(detailForm.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"
-                    class="items"
-                    type="text"
-                    readonly
-                  />
-                </div>
-              </div>
-              <div class="form-body">
-                <textarea
-                  th:text="${detailForm.content}"
-                  class="form-body-input"
-                  readonly
-                ></textarea>
-              </div>
-              <div class="button-group">
-                <button class="bnt bnt-update" type="button" id="btnUpdate">
-                  수정
-                </button>
-                <button class="bnt bnt-delete" type="button" id="btnDelete">
-                  삭제
-                </button>
-                <button class="bnt bnt-list" type="button" id="btnFindAll">
-                  목록
-                </button>
-              </div>
-            </form>
-          </div>
-          <div class="reply">
-            <div class="reply_main">
-              <form id="commentForm" class="form_reply">
-                <input
-                  type="hidden"
-                  id="boardIdHidden"
-                  th:value="${detailForm.boardId}"
-                />
-                <div class="form_group form_writer">
-                  <input
-                    id="writer"
-                    class="input-writer"
-                    type="text"
-                    name="writer"
-                    placeholder="작성자"
-                    th:value="${writer}"
-                    required
-                  />
-                </div>
-                <div class="reply_cnt_btn">
-                  <div class="form_group form_content_reply">
-                    <textarea
-                      id="content"
-                      class="input_reply"
-                      name="content"
-                      placeholder="바른말 고운말"
-                      th:value="${content}"
-                      required
-                    ></textarea>
-                  </div>
 
-                  <div class="button-group_reply">
-                    <button
-                      id="btnUpdate_reply"
-                      type="submit"
-                      class="btn_reply submit_reply"
-                    >
-                      등록
-                    </button>
-                    <button
-                      id="btnCancel_reply"
-                      type="button"
-                      class="btn_reply cancel_reply"
-                    >
-                      취소
-                    </button>
-                  </div>
+          <!-- 버튼그룹 -->
+          <div class="write">
+            <button class="btn bnt-update" type="button" id="btnUpdate">수정</button>
+            <button class="btn bnt-delete" type="button" id="btnDelete">삭제</button>
+            <button class="btn bnt-list" type="button" id="btnFindAll">목록</button>
+          </div>
+
+
+
+          <!-- 댓글 영역 -->
+          <div class="comments-section">
+            <div class="comment-input">
+              <form class="comment-form" id="commentForm">
+                <input type="hidden" id="boardIdHidden" th:value="${detailForm.boardId}" />
+                <input placeholder="아무개" type="text" name="writer" id="writer" th:value="${writer}">
+                <textarea placeholder="댓글을 입력해주세요" name="content" id="content" th:text="${content}"></textarea>
+                <div class="button-group">
+                  <button class="btn " id="btnUpdate_reply" type="submit">등록</button>
+                  <button class="btn " id="btnCancel_reply" type="submit">취소</button>
                 </div>
-                <span id="error_reply"></span>
               </form>
             </div>
-            <div class="reply_list">목록</div>
-            <div id="reply_pagenation"></div>
+
+
+
+            <div  class="reply_list" id="reply_list">
+              <div class="writer">입문자</div>
+              <div class="content">잘 정리되어 있어 초보자도 쉽게 따라할 수 있겠네요. 감사합니다!</div>
+            </div>
+
+            <!-- 페이지네이션 -->
+            <div class="pagination" id="reply_pagenation"></div>
           </div>
         </div>
-      </main>
+  </main>
 
-      <!-- Footer -->
-      <footer class="footer"></footer>
+  </section>
 
-      <dialog id="modalDel">
-        <p>삭제하시겠습니까?</p>
-        <button class="btnYes">예</button>
-        <button class="btnNo">아니오</button>
-      </dialog>
 
-      <script type="module" src="/js/comment/detailForm.js"></script>
-      <script type="module" src="/js/comment/comment.js"></script>
-    </body>
-  </html>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-info">
+        <div class="footer-box">
+          <h4>자기소개</h4>
+          <p>JINIOUS</p>
+          <p>대표: 허진희 | 연락처: 010-xxxx-xxxx</p>
+        </div>
+      </div>
+      <p class="copyright">© 2025 MO:SI. All rights reserved.</p>
+    </div>
+  </footer>
+</div>
+</div>
+
+<!-- 삭제 알림창 -->
+<dialog id="modalDel">
+  <p>삭제하시겠습니까?</p>
+  <button class="btnYes">예</button>
+  <button class="btnNo">아니오</button>
+</dialog>
+
+<!-- js -->
+<script type="module" src="/js/comment/detailForm.js"></script>
+<script type="module" src="/js/comment/comment.js"></script>
+
+</body>
+
+
+
 </html>

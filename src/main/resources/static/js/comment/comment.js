@@ -21,7 +21,7 @@ async function configCommentPagination(boardId, pageNo = 1) {
 
   const pagination = new PaginationUI("reply_pagenation", handlePageChange);
   pagination.setTotalRecords(totalRecords);
-  pagination.setRecordsPerPage(10);
+  pagination.setRecordsPerPage(5);
   pagination.setPagesPerPage(5);
   pagination.handleFirstClick();  // 첫 페이지 자동 클릭
 }
@@ -30,7 +30,7 @@ async function configCommentPagination(boardId, pageNo = 1) {
 
 //2. 댓글 목록 조회 함수 정의(loadComments())
 function loadComments(boardId, pageNo) {
-  fetch(`/api/comments/paging?boardId=${boardId}&pageNo=${pageNo}&numOfRows=10`)
+  fetch(`/api/comments/paging?boardId=${boardId}&pageNo=${pageNo}&numOfRows=5`)
     .then((res) => res.json())
     .then((data) => {
       const listEl = document.querySelector(".reply_list");

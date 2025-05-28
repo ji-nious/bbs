@@ -1,0 +1,299 @@
+* {
+  /* outline: solid 1px red; */
+}
+
+/*========================*/
+/*          Basic         */
+/*========================*/
+*,
+*::before,
+*::after {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+button {
+  background: none;
+  color: inherit;
+  border: none;
+  cursor: pointer;
+  outline: inherit;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input:focus {
+  outline: none;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: auto; /* 수평 스크롤 허용 */
+}
+
+/* 버튼 */
+.btn {
+  background-color: #8d8695;
+  color: #fffaf9;
+  height: 36px;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  margin: 0 3px;
+}
+
+.btn:hover {
+  background-color: #b7aab2;
+}
+
+
+/* 전체 wrap*/
+.wrap {
+  width: 100%;
+}
+
+.inner {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+/*========================*/
+/*         Header         */
+/*========================*/
+.header {
+  height: 80px;
+  background-color: #ffffff;
+  /* border-bottom: 1px solid #ddd; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 내부 wrap */
+.header_wrap {
+  width: 100%;
+  height: inherit;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+/* header-box*/
+.header_box {
+  width: 240px;
+  display: flex;
+  justify-content: center;
+}
+
+/* 로고 */
+.logo {
+  font-size: 35px;
+  font-weight: bold;
+  color: #2f4858;
+}
+
+
+/* 아이콘 영역 */
+.header-icons {
+  padding-left: 103px;
+}
+
+.header-icons span {
+  margin-left: 16px;
+  cursor: pointer;
+}
+
+
+/*========================*/
+/*      Category Menu     */
+/*========================*/
+.category-menu {
+  background-color: #fffaf9;
+  border-top: 1px solid #dcd1d3;
+  border-bottom: 1px solid #dcd1d3;
+  padding: 15px 0;
+}
+
+.category-menu ul {
+  display: flex;
+  justify-content: center; /* 중앙 정렬 (또는 flex-start로 좌측 정렬 가능) */
+  gap: 40px; /* 카테고리 사이사이 너비 */
+}
+
+.category-menu li {
+  font-size: 16px;
+  font-weight: 500;
+  color: #2f4858;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.category-menu li:hover {
+  color: #8d8695; /* 포인트 컬러로 변경 */
+}
+
+
+
+/*========================*/
+/*       Main Banner      */
+/*========================*/
+.main-banner {
+  width: 100%;
+  height: 480px;
+  background: #e0f7fa; /* 배경 또는 이미지 슬라이드 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+
+/*========================*/
+/*      Category Menu     */
+/*========================*/
+.category-menu {
+  background-color: #fffaf9;
+  border-top: 1px solid #dcd1d3;
+  border-bottom: 1px solid #dcd1d3;
+  padding: 15px 0;
+}
+
+.category-menu ul {
+  display: flex;
+  justify-content: center; /* 중앙 정렬 (또는 flex-start로 좌측 정렬 가능) */
+  gap: 40px; /* 카테고리 사이사이 너비 */
+}
+
+.category-menu li {
+  font-size: 16px;
+  font-weight: 500;
+  color: #2f4858;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.category-menu li:hover {
+  color: #8d8695; /* 포인트 컬러로 변경 */
+}
+
+
+
+
+/*========================*/
+/*         Footer         */
+/*========================*/
+.footer {
+  background-color: #2f4858;
+  color: #ccc;
+  padding: 40px 0 20px;
+  font-size: 14px;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.footer-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 20px;
+}
+
+.footer-box h4 {
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.footer-box p {
+  margin: 4px 0;
+}
+
+footer p.copyright {
+  text-align: center;
+  color: #888;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+
+/*========================*/
+/*          Main          */
+/*========================*/
+.mypage-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+  gap: 40px;
+}
+
+
+/* 오른쪽 콘텐츠 */
+.main-content {
+  padding: 50px;
+  flex: 1;
+}
+
+.main-content h2 {
+  font-size: 22px;
+  margin-bottom: 25px;
+  color: #2f4858;
+}
+
+.board {
+  /* border: 1px solid #dcd1d3; */
+  background-color: #fff;
+  padding: 10px;
+}
+
+
+
+/*
+
+.upload-box {
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+.upload-info {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.upload-form {
+  height: 150px;
+  background-color: #fff;
+  border: 1px dashed #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.form-buttons {
+  text-align: right;
+}
+
+.form-buttons button {
+  margin-left: 10px;
+  padding: 6px 12px;
+} */

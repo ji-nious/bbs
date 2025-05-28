@@ -3,63 +3,94 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link th:href="@{/css/all.css}" rel="stylesheet">
-<!--    <link href="/static/css/all.css" rel="stylesheet">-->
-    <title>게시글목록</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link th:href="@{/css/common.css}" rel="stylesheet">
+  <link th:href="@{/css/all.css}" rel="stylesheet">
+<!--  <link rel="stylesheet" href="/static/css/common.css" />-->
+  <!--  <link rel="stylesheet" href="/static/css/all.css" />-->
+  <title>common</title>
 </head>
 
 <body>
-    <!-- UpperMost-->
-    <div class="uppermost">
-        <div class="member">
-            <button class="btn member_login">log in</button>
-            <button class="btn member_join">join</button>
-        </div>
-    </div>
+<div class="wrap">
+  <div class="inner">
+
     <!-- Header -->
     <header class="header">
-
+      <div class="header_wrap">
+        <div class="header_box logo"><a th:href="@{/}">JINIOUS</a></div>
+        <div class="header_box header-icons">
+          <span>로그인</span>
+          <span>회원가입</span>
+        </div>
+      </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="main">
-        <div class="main-content">
-            <h2 class="title">자유게시판</h2>
-            <div class="notice">검색</div>
-            <div class="content">
-                <form class="form">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>순번</th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>작성일</th>
-                                <th>수정일</th>
-                            </tr>
-                        </thead>
-                        <tbody class="tbody">
-                            <tr th:each="board:${list}">
-                                <td th:text="${board.boardId}">1</td>
-                                <td><a th:href="@{/boards/{id}(id=${board.boardId})}" th:text="${board.title}">부산 만두 찐맛집 코스 추천좀요</a></td>
-                                <td th:text="${board.writer}">허진희</td>
-                                <td th:text="${#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm:ss')}">2025-05-15</td>
-                                <td th:text="${#temporals.format(board.updatedAt, 'yyyy-MM-dd HH:mm:ss')}">2025-05-15</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form>
-                <div class="button-write">
-                    <button class="btn_write"><a class="btn-write" th:href="@{/boards/add}">글쓰기</a></button>
-                </div>
-            </div>
-        </div>
-    </main>
+    <!-- Category Menu -->
+    <nav class="category-menu">
+      <ul>
+        <li>전체메뉴</li>
+        <li>SHOP</li>
+        <li>커뮤니티</li>
+      </ul>
+    </nav>
 
-    <!-- Footer -->
-    <footer class="footer"></footer>
+    <!-- Main -->
+    <section class="main">
+
+      <!-- 오른쪽 콘텐츠 -->
+      <main class="main-content">
+        <h2>커뮤니티 <small>게시판</small></h2>
+        <div class="board">
+          <form action="">
+            <table class="board-table">
+              <thead>
+              <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>수정일</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="board:${list}">
+                <td th:text="${board.boardId}">1</td>
+                <td><a th:href="@{/boards/{id}(id=${board.boardId})}" th:text="${board.title}">부산 만두 찐맛집 코스 추천좀요</a></td>
+                <td th:text="${board.writer}">허진희</td>
+                <td th:text="${#temporals.format(board.createdAt, 'yyyy-MM-dd HH:mm:ss')}">2025-05-15</td>
+                <td th:text="${#temporals.format(board.updatedAt, 'yyyy-MM-dd HH:mm:ss')}">2025-05-15</td>
+              </tr>
+              </tbody>
+            </table>
+          </form>
+          <div class="write">
+            <button class="btn btn-write"><a class="btn-write" th:href="@{/boards/add}">글쓰기</a></button>
+          </div>
+
+          <div class="pagination" id="pagination"></div>
+        </div>
+  </main>
+
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-info">
+        <div class="footer-box">
+          <h4>자기소개</h4>
+          <p>JINIOUS</p>
+          <p>대표: 허진희 | 연락처: 010-xxxx-xxxx</p>
+        </div>
+      </div>
+      <p class="copyright">© 2025 MO:SI. All rights reserved.</p>
+    </div>
+  </footer>
+</div>
+</div>
 </body>
 
 </html>

@@ -1,141 +1,98 @@
-/* * {outline: 1px solid red;} */
-
-.uppermost{
-display: flex;
-flex-direction: column;
-justify-content: end;
-align-items: end;
-
-    background-color: #6F82C0;
-    height : 40px;
-}
-
-.member {
-    display: flex;
-    justify-content: end;
-    align-items: end;
-    margin-right: 15px;
-    width : 150px;
-    height: 30px;
-}
-
-.btn {
-    width: 55px;
-    height: 23px;
-    border-radius: 5px;
-    outline : none;
-    border : none;
-    
-    background-color: #F3F3F9;
-    color : #4E5879;
-    font-weight: bold;
-}
-
-.member_login {
-    margin-right: 5px;
+/*========================*/
+/*          Main          */
+/*========================*/
+.mypage-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+  gap: 40px;
 }
 
 
-body {
-    background-color: #FFFFFF;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
 
-}
-
-.header {
-    background-color: #6F82C0;
-    height: 180px;
-}
-
-.footer {
-    background-color: #A1AAC8;
-    height: 100px;
-}
-
-.main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    height: 800px;
-}
-
+/* 게시판 */
 .main-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    background-color: #F3F3F9;
-    width: 70%;
-    height: 100%;
+  padding: 50px;
+  flex: 1;
 }
 
-.title {
-    color: #4E5879;
+.main-content h2 {
+  font-size: 22px;
+  margin-bottom: 25px;
+  color: #2f4858;
 }
 
-
-.notice {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    background-color: #C9D4F6;
-    width: 90%;
-    height: 70px;
-    margin-bottom: 40px;
-    margin-top: 25px;
-    box-sizing: border-box;
-    padding: 20px;
-
-}
-.content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    background-color: #ECEEF6;
-    width: 90%;
-    height: 550px;
-
-    padding: 15px;
-    box-sizing: border-box;
+.board {
+  /* border: 1px solid #dcd1d3; */
+  background-color: #fff;
+  padding: 10px;
 }
 
 
+/* 테이블 */
+.board-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  border-radius: 8px;
+}
 
-.form {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch ;
+.board-table th,
+.board-table td {
+  padding: 14px;
+  text-align: center;
+  border-bottom: 1px solid #dcd1d3;
+}
 
-    width: 100%;
-    height: 100%;
+.board-table th {
+  background-color: #dcd1d3;
+  color: #2f4858;
+}
 
-    margin-top: 20px;
+.board-table td,
+.board-table td a {
+  color: #2f4858;
+  text-decoration: none;
+}
+
+.board-table td a:hover {
+  color: #b7aab2;
+  text-decoration: underline;
 }
 
 
-.tbody {
-    background-color: white;
+/* 글쓰기 버튼 */
+.write {
+  display: flex;
+  justify-content: end;
+  padding: 10px;
 }
 
-td {
-    text-align: center;
+
+
+/* 페이지네이션 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 8px;
 }
 
-.btn_write{
-    width: 55px;
-    height: 23px;
-    border-radius: 5px;
-    outline : none;
-    border : none;
-    
-    background-color: #6F82C0;
-    color : #F3F3F9;
-    font-weight: bold;
+.pagination button {
+  background-color: #fff;
+  border: none;
+  color: #2f4858;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
+
+.pagination button:hover {
+  color: #b7aab2;
+}
+
+.pagination button.active {
+  background-color: #fff;
+  color: #2f4858;
+  font-weight: bold;}
