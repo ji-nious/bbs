@@ -17,7 +17,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
     String redirectUrl = null;
 
     log.info("handler={}", handler.getClass());
-    //요청 URI    ex) GET http://localhost:9080/products?a=1&b=2 상품관리
+    //요청 URL    ex) GET http://localhost:9080/products?a=1&b=2 상품관리
 
     String requestURI = request.getRequestURI();    //   /products
 //    log.info("requestURI={}",request.getRequestURI());   // /products

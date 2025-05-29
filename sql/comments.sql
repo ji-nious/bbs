@@ -15,8 +15,9 @@ CREATE TABLE comments (
 ALTER TABLE comments ADD CONSTRAINT comments_comments_id_pk PRIMARY KEY (comments_id);
 
 -- 4. 외래키 제약조건 추가 (board 테이블이 존재한다고 가정)
-ALTER TABLE comments ADD CONSTRAINT comments_board_id_fk FOREIGN KEY (board_id)
-REFERENCES board(board_id);
+ALTER TABLE comments ADD CONSTRAINT fk_comments_board FOREIGN KEY (board_id)
+REFERENCES board(board_id)
+ON DELETE CASCADE;
 
 -- 5. 시퀀스 삭제
 DROP SEQUENCE comments_comments_id_seq;

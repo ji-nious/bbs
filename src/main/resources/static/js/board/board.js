@@ -43,7 +43,7 @@ function renderPagination(paging) {
   const { pageNo, numOfRows, totalCount } = paging;
   const totalPages = Math.ceil(totalCount / numOfRows);
 
-  const blockSize = 5; // 한 블록에 보여줄 페이지 수
+  const blockSize = 10; // 한 블록에 보여줄 페이지 수
   const currentBlock = Math.ceil(pageNo / blockSize);
   const startPage = (currentBlock - 1) * blockSize + 1;
   const endPage = Math.min(startPage + blockSize - 1, totalPages);

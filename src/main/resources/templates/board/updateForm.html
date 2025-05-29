@@ -20,9 +20,15 @@
     <header class="header">
       <div class="header_wrap">
         <div class="header_box logo"><a th:href="@{/}">JINIOUS</a></div>
-        <div class="header_box header-icons">
-          <span>로그인</span>
+        <!-- 로그인 전 -->
+        <div th:if="${session.isEmpty()}" class="header_box header-icons">
+          <span><a href="http://www.naver.com" th:href="@{/login}">로그인</a></span>
           <span><a href="http://www.naver.com" th:href="@{/members/join}">회원가입</a></span>
+        </div>
+        <!-- 로그인 후 -->
+        <div th:if="${!session.isEmpty()}" class="header_box header-icons">
+          <span><a id="btnLogout">로그아웃</a></span>
+          <span><a href="http://www.naver.com" th:href="@{/members/join}">마이페이지</a></span>
         </div>
       </div>
     </header>
@@ -164,6 +170,7 @@
         }, false);
 
     </script>
+    <script type="module" src="/js/login/login.js"></script>
 
 </body>
 

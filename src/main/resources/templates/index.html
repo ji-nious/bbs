@@ -24,7 +24,7 @@
         </div>
         <!-- 로그인 후 -->
         <div th:if="${!session.isEmpty()}" class="header_box header-icons">
-          <span><a href="http://www.naver.com" th:href="@{/login}">로그아웃</a></span>
+          <span><a id="btnLogout">로그아웃</a></span>
           <span><a href="http://www.naver.com" th:href="@{/members/join}">마이페이지</a></span>
         </div>
       </div>
@@ -148,5 +148,7 @@
     </footer>
   </div>
 </div>
+
+<script type="module" src="/js/login/login.js"></script>
 </body>
 </html>

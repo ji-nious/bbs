@@ -37,6 +37,25 @@ class CommentDAOImplTest {
   }
 
   @Test
+  @DisplayName("댓글등록(여러개)")
+  void save_comments() {
+    for (int i = 1; i <=50 ; i++) {
+      //given
+      Comment comment = new Comment();
+      comment.setBoardId(100L);
+      comment.setContent("댓글내용_" + i);
+      comment.setWriter("댓글이용자_" + i);
+
+      //when
+      Long commentId = commentDAO.save(comment);
+
+      //then
+      Assertions.assertThat(commentId).isNotNull();
+      Assertions.assertThat(commentId).isGreaterThan(0);
+    }
+  }
+
+  @Test
   @DisplayName("댓글 목록")
   void findAll() {
     //given

@@ -46,7 +46,7 @@ async function loadPagedComments(boardId, pageNo=1, numOfRows=10) {
 
                   if (result.header?.rtcd === 'S00') {
                     alert("삭제 완료!");
-                    loadComments(boardId); // 목록 다시 불러오기
+                    loadPagedComments(boardId); // 목록 다시 불러오기
                   } else {
                     alert("삭제 실패: " + result.header?.rtmsg);
                   }

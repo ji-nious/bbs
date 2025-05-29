@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,23 @@ class BoardDAOImplTest {
     long rows = boardDAO.save(board);
 
     log.info("상품번호 = {}", rows);
+  }
+
+  @Test
+  @DisplayName("(여러개)게시판 글쓰기")
+  void save_boards() {
+    for (int i = 1; i <= 100; i++) {
+      Board board = new Board();
+      board.setWriter("작성자_" + i);
+      board.setTitle("테스트제목_" + i);
+      board.setContent("테스터내용_" + i);
+      board.setCreatedAt(LocalDateTime.now());
+      board.setUpdatedAt(LocalDateTime.now());
+
+      long rows = boardDAO.save(board);
+      log.info("게시글번호 = {}", rows);
+    }
+
   }
 
 

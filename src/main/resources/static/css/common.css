@@ -98,6 +98,7 @@ body {
   justify-content: center;
 }
 
+
 /* 로고 */
 .logo {
   font-size: 35px;
@@ -107,14 +108,12 @@ body {
 
 
 /* 아이콘 영역 */
-.header-icons {
-  padding-left: 103px;
+.header-icons span {
+  width: 75px;
+  cursor: pointer;
+  align-content: center;
 }
 
-.header-icons span {
-  margin-left: 16px;
-  cursor: pointer;
-}
 
 
 /*========================*/
