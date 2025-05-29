@@ -1,10 +1,14 @@
 package com.kh.bbs.domain.entity;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
 public class Member {
+  @NotBlank(message = "제목은 필수입니다.")
+  @Size(min=1, max=30, message = "작성자명은 10자를 초과할 수 없습니다.")
   private Long memberId;        // number(10),     --내부 관리 아이디
   private String email;         // varchar2(50),   --로긴 아이디
   private String passwd;        // varchar2(12),   --로긴 비밀번호

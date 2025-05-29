@@ -6,7 +6,8 @@
   padding: 30px;
 }
 
-.post-container hr {
+.post-container hr,
+.reply_list hr {
   margin-top: 15px;
   height: 1px;
   background: #b7aab2;
@@ -42,6 +43,7 @@
   color: #2f4858;
   margin-bottom: 40px;
   margin-left: 2px;
+  padding: 15px 0;
 }
 
 
@@ -61,14 +63,14 @@
   border-radius: 8px;
 }
 
-.comment-input{
+.comment-input {
   border: 1px solid #dcd1d3;
   border-radius: 8px;
   padding: 20px 10px;
   margin-bottom: 40px;
 }
 
-.comment-form input {
+.comment-form input{
   margin: 10px 20px;
   border: none;
   font-size: rem;
@@ -76,7 +78,8 @@
   color: #2f4858;
 }
 
-.comment-form textarea {
+.comment-form textarea,
+.comment-content.edit-content {
   width: 100%;
   height: 80px;
   padding: 10px;
@@ -89,17 +92,24 @@
   resize: none;
 }
 
-.comment-form textarea:focus {
+.comment-form textarea:focus,
+.comment-content.edit-content{
   outline: none;
 }
 
-.button-group {
+.comment-content.edit-content{
+  background-color: #fffaf9;
+}
+
+.button-group,
+.btn-comment-group {
   display: flex;
   justify-content: end;
   margin-right: 10px;
 }
 
-.comment-form button {
+.comment-form button,
+.btn-comment-group button {
   background-color: white;
   color: #5f6678;
   border: none;
@@ -109,7 +119,8 @@
   margin: 0;
 }
 
-.comment-form button:hover{
+.comment-form button:hover,
+.btn-comment-group button {
   background: none;
 }
 
@@ -129,4 +140,41 @@
 
 .comment .content {
   white-space: pre-line;
+}
+
+/*댓글 목록*/
+.reply_list{
+  padding: 15px;
+}
+.comment-writer{
+  font-size: 16px;
+  color: #2f4858;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.comment-content {
+  font-size: 18px;
+  color: #2f4858;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+/* 댓글 페이징 버튼 */
+#reply_pagination {
+  display:flex;
+  justify-content: center;
+}
+
+#reply_pagination button {
+  margin: 2px;
+  padding: 4px 8px;
+  border: none;
+  background-color: none;
+  cursor: pointer;
+  color: #8d8695;
+}
+#reply_pagination .active-page {
+  font-weight: bold;
+  color: #2f4858;
 }

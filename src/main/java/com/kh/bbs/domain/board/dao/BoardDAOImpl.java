@@ -32,7 +32,7 @@ public class BoardDAOImpl implements BoardDAO{
 
 
   //수동매핑
-  RowMapper<Board> productRowMapper(){
+  RowMapper<Board> boardRowMapper(){
 
     return (rs, rowNum)->{
       Board board = new Board();
@@ -86,8 +86,8 @@ public class BoardDAOImpl implements BoardDAO{
   }
 
   /**
-   * 상품 목록
-   * @return 상품 목록
+   * 게시글 목록
+   * @return 게시글 목록
    */
   @Override
   public List<Board> findAll() {
@@ -98,15 +98,15 @@ public class BoardDAOImpl implements BoardDAO{
     sql.append("ORDER BY BOARD_ID DESC ");
 
     //db요청
-    List<Board> list = template.query(sql.toString(), productRowMapper());
+    List<Board> list = template.query(sql.toString(), boardRowMapper());
 
     return list;
   }
 
   /**
-   * 상품조회
-   * @param id 상품번호
-   * @return 상품정보
+   * 게시글조회
+   * @param id 게시글번호
+   * @return 게시글정보
    */
   @Override
   public Optional<Board> findById(Long id) {
@@ -128,8 +128,8 @@ public class BoardDAOImpl implements BoardDAO{
   }
 
   /**
-   * 상품삭제(단건)
-   * @param id 상품번호
+   * 게시글삭제(단건)
+   * @param id 게시글번호
    * @return 삭제건수
    */
   @Override
@@ -147,10 +147,10 @@ public class BoardDAOImpl implements BoardDAO{
   }
 
   /**
-   * 상품 수정
-   * @param boardId 상품번호
-   * @param board 상품정보
-   * @return 상품 수정 건수
+   * 게시글 수정
+   * @param boardId 게시글번호
+   * @param board 게시글정보
+   * @return 게시글 수정 건수
    */
   @Override
   public int updateById(Long boardId, Board board) {
@@ -169,6 +169,36 @@ public class BoardDAOImpl implements BoardDAO{
     int rows = template.update(sql.toString(), param); // 수정된 행의 수 반환
 
     return rows;
+  }
+
+  /**
+   * 게시글 목록 페이징
+   * @param pageNo
+   * @param numOfRows
+   * @return 페이징 리스트
+   */
+  @Override
+  public List<Board> findAll(int pageNo, int numOfRows) {
+    int offset = (pageNo - 1) * numOfRows;
+
+    StringBuffer sql = new StringBuffer();
+    sql.append("SELECT board_id,title,writer,created_at, updated_at ");
+    sql.append("FROM board ");
+    sql.append("ORDER BY board_id desc ");
+    sql.append("OFFSET :offset ROWS ");
+    sql.append("FETCH NEXT :limit ROWS only ");
+
+    Map<String, Object> param = Map.of("offset", offset, "limit", numOfRows);
+
+    List<Board> list = template.query(sql.toString(), param, boardRowMapper());
+
+    return list;
+  }
+
+  @Override
+  public int totalCount() {
+    String sql = "SELECT COUNT(*) FROM board";
+    return template.queryForObject(sql, Map.of(), Integer.class);
   }
 
 }

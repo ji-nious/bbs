@@ -9,7 +9,7 @@
   <link th:href="@{/css/common.css}" rel="stylesheet" />
   <link th:href="@{/css/detailForm.css}" rel="stylesheet" />
   <!-- <link rel="stylesheet" href="/static/css/common.css" /> -->
-  <!-- <link rel="stylesheet" href="/static/css/detail.css" /> -->
+  <!-- <link rel="stylesheet" href="/static/css/detailForm.css" /> -->
 
   <title>커뮤니티 게시판</title>
 </head>
@@ -57,9 +57,7 @@
                     th:text="${#temporals.format(detailForm.updatedAt, 'yyyy-MM-dd HH:mm:ss')}">수정일</span>
             </div>
             <hr>
-            <div class="content" th:text="*{content}">
-              내용
-            </div>
+            <div class="content" th:text="*{content}">내용</div>
           </div>
 
           <!-- 버튼그룹 -->
@@ -80,10 +78,11 @@
                 <textarea placeholder="댓글을 입력해주세요" name="content" id="content" th:text="${content}"></textarea>
                 <div class="button-group">
                   <button class="btn " id="btnUpdate_reply" type="submit">등록</button>
-                  <button class="btn " id="btnCancel_reply" type="submit">취소</button>
+                  <button class="btn " id="btnCancel_reply" type="button">취소</button>
                 </div>
               </form>
             </div>
+            <div class="error_reply"></div>
 
 
 
@@ -93,7 +92,7 @@
             </div>
 
             <!-- 페이지네이션 -->
-            <div class="pagination" id="reply_pagenation"></div>
+            <div class="pagination" id="reply_pagination"></div>
           </div>
         </div>
   </main>

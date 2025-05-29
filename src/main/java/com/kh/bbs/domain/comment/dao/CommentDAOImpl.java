@@ -112,9 +112,9 @@ public class CommentDAOImpl implements CommentDAO {
     String sql = "SELECT COUNT(*) FROM comments WHERE board_id = :boardId ";
 
     Map<String, Object> param = Map.of("boardId", boardId);
-
     return template.queryForObject(sql, param, Integer.class);
   }
+
   /**
    * 댓글 삭제
    * @param id

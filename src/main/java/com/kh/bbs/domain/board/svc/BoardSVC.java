@@ -15,6 +15,12 @@ public interface BoardSVC {
   // 게시글 조회
   Optional<Board> findById(Long id);
 
+  // 게시글 페이징
+  List<Board> findAll(int pageNo, int numOfRows);
+
+  // 게시글 총 갯수
+  int totalCount();
+
   // 게시글 삭제
   int deleteById(Long id);
 

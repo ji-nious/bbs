@@ -34,5 +34,15 @@ public class BoardSVCImpl implements BoardSVC{
   @Override
   public int updateById(Long boardId, Board board) { return boardDAO.updateById(boardId, board);
   }
+
+  @Override
+  public List<Board> findAll(int pageNo, int numOfRows) {
+    return boardDAO.findAll(pageNo, numOfRows);
+  }
+
+  @Override
+  public int totalCount() {
+    return boardDAO.totalCount();
+  }
 }
 

@@ -45,7 +45,6 @@
 }
 
 .post-container hr {
-  margin-top: 15px;
   height: 1px;
   background: #b7aab2;
   border: none;
@@ -64,10 +63,11 @@
   margin-bottom: 40px;
   margin-left: 2px;
   resize: none;
-  padding: 10px;
+  margin: 15px 0;
   border: none;
   background-color: #fffaf9;
   border-radius: 5px;
+  
 }
 
 .content:focus {

@@ -132,11 +132,14 @@ public class CommentController {
   ) {
     log.info("boardId= {}, pageNo={}, numOfRows={}", boardId, pageNo, numOfRows);
 
-    //상품목록 가져오기
-    List<Comment> list = commentSVC.findAll(boardId, pageNo, numOfRows);
 
-    //상품 총 건수 가져오기
+    //댓글목록 가져오기
+    List<Comment> list = commentSVC.findAll(boardId, pageNo, numOfRows);
+    log.info("리스트: {}", list);
+
+    //댓글 총 건수 가져오기
     int totalCount = commentSVC.getTotalCount(boardId);
+    log.info("총 댓글 수: {}", totalCount);
 
     //REST API 표준 응답 만들기
     ApiResponse<List<Comment>> listApiResponse = ApiResponse.of(ApiResponseCode.SUCCESS,

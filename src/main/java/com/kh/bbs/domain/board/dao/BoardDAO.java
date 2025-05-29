@@ -12,6 +12,12 @@ public interface BoardDAO {
   //게시글 목록 - board 객체들을 목록으로 받을 거니까 데이터 타입은 List<Board>
   List<Board> findAll();
 
+  //게시글 페이징
+  List<Board> findAll(int pageNo, int numOfRows);
+
+  //게시글 총 갯수
+  int totalCount();
+
   //게시글 상세
   public Optional<Board> findById(Long id);
 

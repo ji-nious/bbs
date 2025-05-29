@@ -3,6 +3,7 @@ package com.kh.bbs.web.controller;
 import com.kh.bbs.domain.entity.Member;
 import com.kh.bbs.domain.member.svc.MemberSVC;
 import com.kh.bbs.web.form.member.JoinForm;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -36,7 +37,7 @@ public class MemberController {
   //가입처리
   @PostMapping("/join")     // POST /members/join
   public String join(
-      @ModelAttribute JoinForm joinForm,
+      @Valid @ModelAttribute JoinForm joinForm,
       //@ModelAttribute : form 데이터를 자바 객체에 주입(클라이언트->컨트롤러)
       BindingResult bindingResult
       //BindingResult : 검증 결과(에러) 담음. 폼 데이터를 객체에 바인딩하거나, @Valid 할 때 에러 발생하면 이 정보 담음
